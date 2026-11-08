@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lok Sabha results 1951–2024: party trends</title>
+<style>
+.viz-root {
+  color-scheme: light;
+  --surface-0: #f4f3f0; --surface-1: #fcfcfb; --border: #e3e2dd; --grid: #ecebe7;
+  --text-primary: #0b0b0b; --text-secondary: #52514e; --text-muted: #7a7973;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4;
+  --s6: #008300; --s7: #6250d6; --s-other: #a3a29c; --s-ind: #c9c8c2;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz-root {
+    color-scheme: dark;
+    --surface-0: #111110; --surface-1: #1a1a19; --border: #2e2e2c; --grid: #262624;
+    --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #8f8e86;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+    --s6: #008300; --s7: #9085e9; --s-other: #6f6e69; --s-ind: #4a4a47;
+  }
+}
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --surface-0: #111110; --surface-1: #1a1a19; --border: #2e2e2c; --grid: #262624;
+  --text-primary: #f0efec; --text-secondary: #c3c2b7; --text-muted: #8f8e86;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+  --s6: #008300; --s7: #9085e9; --s-other: #6f6e69; --s-ind: #4a4a47;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+.viz-root { background: var(--surface-0); color: var(--text-primary); min-height: 100vh;
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; padding: 28px clamp(14px, 3vw, 40px) 60px; }
+.wrap { max-width: 1240px; margin: 0 auto; }
+h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 { font-size: 17px; margin: 0 0 2px; }
+.sub { color: var(--text-secondary); margin: 0 0 18px; max-width: 820px; }
+.small { font-size: 12px; color: var(--text-muted); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 18px 0 26px; }
+.kpi { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.kpi .v { font-size: 26px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.kpi .l { color: var(--text-secondary); font-size: 12.5px; }
+section { margin: 0 0 30px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: 16px; }
+.card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; padding: 16px 16px 10px; position: relative; }
+.card h3 { margin: 0; font-size: 14.5px; }
+.card .cap { color: var(--text-secondary); font-size: 12.5px; margin: 2px 0 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--text-secondary); margin: 4px 0 6px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 3px; border-radius: 2px; display: inline-block; }
+.legend i.sq { height: 10px; width: 10px; border-radius: 2px; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: var(--text-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg .lbl { fill: var(--text-secondary); font-size: 11.5px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 8px 0 12px; }
+select, button { font: inherit; color: var(--text-primary); background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 10px; }
+button[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-1); }
+.tip { position: fixed; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  opacity: 0; transition: opacity .08s; z-index: 10; min-width: 160px; }
+.tip b { display: block; margin-bottom: 4px; }
+.tip .row { display: flex; justify-content: space-between; gap: 14px; }
+.tip .row span:first-child { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+.tip i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: 12.5px; }
+th, td { padding: 5px 8px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; }
+th:first-child, td:first-child, th.l, td.l { text-align: left; }
+th { color: var(--text-secondary); font-weight: 600; position: sticky; top: 0; background: var(--surface-1); }
+.scroll { overflow: auto; max-height: 560px; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+.heat td { text-align: center; font-size: 11.5px; padding: 4px 5px; }
+.heat td.l { text-align: left; }
+.heat td span.c { display: inline-block; min-width: 54px; padding: 2px 4px; border-radius: 4px; }
+details { margin-top: 8px; }
+summary { cursor: pointer; color: var(--text-secondary); font-size: 12.5px; }
+.theme { position: absolute; top: 28px; right: clamp(14px, 3vw, 40px); }
+a { color: var(--s1); }
+</style>
+</head>
+<body>
+<div class="viz-root">
+<button class="theme" id="theme" aria-label="Toggle dark mode">◐ Theme</button>
+<div class="wrap">
+  <h1>Lok Sabha elections, 1951–2024</h1>
+  <p class="sub">Every general-election result from the Election Commission of India's statistical reports,
+    rebuilt seat by seat. National lines group parties into their long-run lineages; the state explorer shows parties as ECI recorded them.</p>
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>National trends by party lineage</h2>
+    <p class="small">Lineages: Congress = INC (incl. INC(I) in 1980). BJS / BJP = Bharatiya Jana Sangh to 1971, BJP from 1984 (both sat inside the Janata coalition in 1977–80).
+      Janata parivar = BLD (1977), Janata Party, Lok Dal, Janata Dal and its successors (JD(U), JD(S), RJD, Samata…). Left = CPI, CPI(M), RSP, Forward Bloc, CPI(ML)L.</p>
+    <div class="grid2">
+      <div class="card"><h3>Seats won</h3><p class="cap">Dashed line: majority mark for that election.</p>
+        <div class="legend" id="lg-nat"></div><div id="ch-nat-seats"></div></div>
+      <div class="card"><h3>Vote share (% of valid votes)</h3><p class="cap">Valid votes exclude NOTA, as in ECI's reports.</p>
+        <div class="legend" id="lg-nat2"></div><div id="ch-nat-share"></div></div>
+    </div>
+    <details><summary>Show as table</summary><div class="scroll" id="tb-nat"></div></details>
+  </section>
+
+  <section>
+    <h2>Each election: top parties</h2>
+    <div class="controls"><label for="sel-year">Election</label><select id="sel-year"></select></div>
+    <div class="card"><div class="scroll" id="tb-year"></div></div>
+  </section>
+
+  <section>
+    <h2>State explorer</h2>
+    <div class="controls"><label for="sel-state">State / UT</label><select id="sel-state"></select>
+      <span class="small" id="state-note"></span></div>
+    <div class="grid2">
+      <div class="card"><h3 id="st-h1">Seats won</h3><p class="cap">Each bar is one election; height = seats in the state.</p>
+        <div class="legend" id="lg-st"></div><div id="ch-st-seats"></div></div>
+      <div class="card"><h3>Vote share in the state (%)</h3><p class="cap">Hover for every party's share that year.</p>
+        <div class="legend" id="lg-st2"></div><div id="ch-st-share"></div></div>
+    </div>
+    <details><summary>Show as table</summary><div class="scroll" id="tb-st"></div></details>
+  </section>
+
+  <section>
+    <h2>Largest party in each state, every election</h2>
+    <p class="small">Party with the most seats (ties: higher vote share). Cell shows party and seats won / seats in the state.</p>
+    <div class="card"><div class="scroll" id="heat"></div></div>
+  </section>
+
+  <section>
+    <h2>About the data</h2>
+    <div class="card small" id="notes"></div>
+  </section>
+</div>
+<div class="tip" id="tip" role="status"></div>
+</div>
+<script>
+const D = /*__DATA__*/null;
+const $ = s => document.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+const css = v => getComputedStyle(document.querySelector('.viz-root')).getPropertyValue(v).trim();
+const fmt = n => n == null ? "–" : n.toLocaleString("en-IN");
+const NAT_COLORS = {"Congress":"--s1","BJS / BJP":"--s2","Janata parivar":"--s3","Left":"--s4","Other parties":"--s-other","Independents":"--s-ind"};
+// Color follows the entity: INC and BJS/BJP keep their slots in every state.
+const FIXED = {"INC":"--s1","BJS/BJP":"--s2","IND":"--s-ind","Others":"--s-other"};
+const POOL = ["--s3","--s4","--s5","--s6","--s7"];
+function stateColors(series){ const m={}; let i=0; for(const s of series){ m[s.key]=FIXED[s.key]||POOL[i++]||"--s-other"; } return m; }
+
+const tip = $("#tip");
+function showTip(html, ev){ tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px"; }
+function hideTip(){ tip.style.opacity = 0; }
+function el(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+function niceMax(v){ const p = Math.pow(10, Math.floor(Math.log10(v||1))); for (const m of [1,1.2,1.5,2,2.5,3,4,5,6,8,10]) if (m*p >= v) return m*p; return 10*p; }
+
+function legend(target, items){ $(target).innerHTML = items.map(([label, v, sq]) =>
+  `<span><i class="${sq?'sq':''}" style="background:var(${v})"></i>${label}</span>`).join(""); }
+
+// ---- line chart with crosshair tooltip
+function lineChart(target, years, series, opt){
+  const box = $(target); box.innerHTML = "";
+  const W = 560, H = 300, m = {l: 40, r: 92, t: 10, b: 26};
+  const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": opt.aria}, box);
+  const vals = series.flatMap(s => s.values).filter(v => v != null);
+  const ymax = opt.ymax || niceMax(Math.max(...vals, ...(opt.ref||[]).filter(Boolean)) * 1.05);
+  const y0 = years[0], y1 = years[years.length - 1];
+  const x = i => m.l + (y1 === y0 ? (W-m.l-m.r)/2 : (years[i] - y0) * (W - m.l - m.r) / (y1 - y0));
+  const y = v => H - m.b - v / ymax * (H - m.t - m.b);
+  for (let k = 0; k <= 4; k++){ const v = ymax * k / 4;
+    el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--grid")}, svg);
+    el("text", {x: m.l - 6, y: y(v) + 3.5, "text-anchor": "end"}, svg).textContent = opt.pct ? v + "%" : v; }
+  // ticks on round decades, plus first and last election, skipping any that would collide
+  const ticks = [y0]; for (let t = Math.ceil((y0 + 4) / 10) * 10; t < y1 - 4; t += 10) ticks.push(t); if (y1 !== y0) ticks.push(y1);
+  const xt = t => m.l + (y1 === y0 ? (W-m.l-m.r)/2 : (t - y0) * (W - m.l - m.r) / (y1 - y0));
+  ticks.forEach(t => el("text", {x: xt(t), y: H - 8, "text-anchor": "middle"}, svg).textContent = t);
+  if (opt.ref){ el("path", {d: opt.ref.map((v,i)=>`${i?'L':'M'}${x(i)},${y(v)}`).join(""), fill: "none",
+      stroke: css("--text-muted"), "stroke-dasharray": "4 4", "stroke-width": 1}, svg);
+  }
+  const ends = opt.ref ? [{y: y(opt.ref[opt.ref.length-1]), t: "Majority", v: Infinity}] : [];
+  series.forEach(s => {
+    const c = css(s.color); let d = "", pen = false;
+    s.values.forEach((v, i) => { if (v == null){ pen = false; return; } d += `${pen?'L':'M'}${x(i)},${y(v)}`; pen = true; });
+    el("path", {d, fill: "none", stroke: c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round"}, svg);
+    s.values.forEach((v, i) => { if (v != null) el("circle", {cx: x(i), cy: y(v), r: 2.6, fill: c, stroke: css("--surface-1"), "stroke-width": 1}, svg); });
+    const li = s.values.length - 1; if (s.values[li] != null && s.label !== false) ends.push({y: y(s.values[li]), t: s.name, v: s.values[li]});
+  });
+  // direct labels at the right edge for up to 4 leading series, de-collided
+  ends.sort((a,b)=>b.v-a.v); const lab = ends.slice(0, opt.ref ? 5 : 4).sort((a,b)=>a.y-b.y);
+  for (let i = 1; i < lab.length; i++) if (lab[i].y - lab[i-1].y < 13) lab[i].y = lab[i-1].y + 13;
+  lab.forEach(e => el("text", {x: W - m.r + 6, y: e.y + 4, class: "lbl"}, svg).textContent = e.t);
+  const cross = el("line", {y1: m.t, y2: H - m.b, stroke: css("--text-muted"), "stroke-width": 1, opacity: 0}, svg);
+  const hit = el("rect", {x: m.l - 10, y: 0, width: W - m.l - m.r + 20, height: H, fill: "transparent"}, svg);
+  hit.addEventListener("pointermove", ev => {
+    const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    let i = 0, best = Infinity;
+    years.forEach((_, k) => { const dx = Math.abs(x(k) - p.x); if (dx < best) { best = dx; i = k; } });
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", .6);
+    const rows = series.map(s => ({n: s.name, c: s.color, v: s.values[i]})).filter(r => r.v != null && (r.v > 0 || !opt.hideZero))
+      .sort((a,b)=>b.v-a.v);
+    showTip(`<b>${opt.titleFor ? opt.titleFor(i) : years[i]}</b>` + rows.map(r =>
+      `<div class="row"><span><i style="background:var(${r.c})"></i>${r.n}</span><span>${opt.pct ? r.v.toFixed(1) + "%" : fmt(r.v)}</span></div>`).join(""), ev);
+  });
+  hit.addEventListener("pointerleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
+}
+
+// ---- stacked bars (seats per election) with per-bar tooltip
+function stackChart(target, years, totals, series){
+  const box = $(target); box.innerHTML = "";
+  const W = 560, H = 300, m = {l: 34, r: 10, t: 10, b: 26};
+  const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Seats won by party per election"}, box);
+  const tmax = Math.max(...totals), ymax = tmax <= 4 ? tmax : niceMax(tmax);
+  const nt = tmax <= 4 ? tmax : 4;
+  const band = (W - m.l - m.r) / years.length, bw = Math.min(26, band * 0.7);
+  const y = v => H - m.b - v / ymax * (H - m.t - m.b);
+  for (let k = 0; k <= nt; k++){ const v = ymax * k / nt;
+    el("line", {x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--grid")}, svg);
+    el("text", {x: m.l - 6, y: y(v) + 3.5, "text-anchor": "end"}, svg).textContent = Math.round(v * 10) / 10; }
+  const step = years.length > 12 ? 2 : 1;
+  years.forEach((yr, i) => {
+    const cx = m.l + band * i + band / 2;
+    if ((i % step === 0 && i !== years.length - 2) || i === years.length - 1) el("text", {x: cx, y: H - 8, "text-anchor": "middle"}, svg).textContent = yr;
+    let acc = 0; const segs = series.filter(s => s.won[i] > 0);
+    segs.forEach((s, j) => {
+      const y0 = y(acc), y1 = y(acc + s.won[i]); acc += s.won[i];
+      const top = j === segs.length - 1, h = Math.max(0, y0 - y1 - (top ? 0 : 2));
+      const r = top ? Math.min(4, h / 2, bw / 2) : 0, x0 = cx - bw / 2, yt = y1;
+      const d = r ? `M${x0},${y0}V${yt + r}Q${x0},${yt} ${x0 + r},${yt}H${x0 + bw - r}Q${x0 + bw},${yt} ${x0 + bw},${yt + r}V${y0}Z`
+                  : `M${x0},${y0}V${y0 - h}H${x0 + bw}V${y0}Z`;
+      el("path", {d, fill: css(s.color)}, svg);
+    });
+    const hit = el("rect", {x: m.l + band * i, y: m.t, width: band, height: H - m.t - m.b, fill: "transparent"}, svg);
+    hit.addEventListener("pointermove", ev => showTip(`<b>${yr} · ${totals[i]} seat${totals[i] > 1 ? "s" : ""}</b>` +
+      segs.slice().reverse().map(s => `<div class="row"><span><i style="background:var(${s.color})"></i>${s.name}</span><span>${s.won[i]}</span></div>`).join("")
+      + (segs.length ? "" : "<div class='small'>no seats won by listed parties</div>"), ev));
+    hit.addEventListener("pointerleave", hideTip);
+  });
+}
+
+function table(target, head, rows){
+  $(target).innerHTML = `<table><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${
+    rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i===0||(typeof c==='string'&&isNaN(+c.replace(/[,%–]/g,'')))?'l':''}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+// ---- render
+function renderAll(){
+  const Y = D.years, last = D.summary[D.summary.length - 1];
+  const t24 = D.top[Y[Y.length-1]];
+  const totalCands = D.summary.reduce((a, r) => a + r.candidates, 0);
+  $("#kpis").innerHTML = [
+    [D.summary.length, "general elections, " + Y[0] + "–" + Y[Y.length-1]],
+    [fmt(totalCands), "candidate results in the database"],
+    [t24[0].won + " / " + last.seats, t24[0].party + " seats in " + last.year + " (" + t24[0].vote_share.toFixed(1) + "% vote)"],
+    [t24[1].won, t24[1].party + " seats in " + last.year + " (" + t24[1].vote_share.toFixed(1) + "% vote)"],
+    [last.turnout.toFixed(1) + "%", "turnout in " + last.year + " (vs " + D.summary[0].turnout.toFixed(1) + "% in " + Y[0] + ")"],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  const nat = D.national.map(s => ({name: s.key, color: NAT_COLORS[s.key], values: s.won, label: s.key !== "Independents"}));
+  legend("#lg-nat", nat.map(s => [s.name, s.color])); legend("#lg-nat2", nat.map(s => [s.name, s.color]));
+  const ord = n => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({1: "st", 2: "nd", 3: "rd"}[n % 10] || "th"));
+  const titleFor = i => `${Y[i]} · ${ord(D.summary[i].lok_sabha)} Lok Sabha · ${D.summary[i].seats} seats`;
+  lineChart("#ch-nat-seats", Y, nat, {aria: "Seats won by party lineage, 1951-2024", ref: Y.map(y => Math.floor(D.seats[y] / 2) + 1), titleFor});
+  lineChart("#ch-nat-share", Y, D.national.map(s => ({name: s.key, color: NAT_COLORS[s.key], values: s.share, label: s.key !== "Independents"})),
+    {aria: "Vote share by party lineage, 1951-2024", pct: true, titleFor});
+  table("#tb-nat", ["Election", ...D.national.flatMap(s => [s.key + " seats", s.key + " %"])],
+    Y.map((y, i) => [y, ...D.national.flatMap(s => [s.won[i], s.share[i].toFixed(2) + "%"])]));
+
+  const sy = $("#sel-year"), keepYear = sy.value; sy.innerHTML = Y.slice().reverse().map(y => `<option>${y}</option>`).join("");
+  const drawYear = () => { const y = +sy.value, s = D.summary.find(r => r.year === y);
+    table("#tb-year", ["Party", "Name", "Contested", "Won", "Vote share", "Seat share"],
+      D.top[y].map(r => [r.party, r.party_name || "", r.contested, r.won, r.vote_share.toFixed(2) + "%", r.won ? (100 * r.won / s.seats).toFixed(1) + "%" : "–"])); };
+  if (keepYear) sy.value = keepYear;
+  sy.onchange = drawYear; drawYear();
+
+  const ss = $("#sel-state"), keepState = ss.value;
+  const names = Object.keys(D.states).sort();
+  const current = names.filter(n => D.states[n].years.includes(2024));
+  const historic = names.filter(n => !D.states[n].years.includes(2024));
+  ss.innerHTML = `<optgroup label="States & UTs (2024)">${current.map(n => `<option>${n}</option>`).join("")}</optgroup>` +
+    `<optgroup label="Former units">${historic.map(n => `<option>${n}</option>`).join("")}</optgroup>`;
+  ss.value = keepState || "Uttar Pradesh";
+  const drawState = () => {
+    const S = D.states[ss.value], cols = stateColors(S.series);
+    const ser = S.series.map(s => ({...s, color: cols[s.key]}));
+    $("#state-note").textContent = `${S.years.length} elections · ${S.years[0]}–${S.years[S.years.length - 1]} · ${S.seats[S.seats.length - 1]} seats now`;
+    legend("#lg-st", ser.map(s => [s.key === "Others" ? "Other parties" : s.key === "IND" ? "Independents" : s.key, s.color, true]));
+    legend("#lg-st2", ser.map(s => [s.key === "Others" ? "Other parties" : s.key === "IND" ? "Independents" : s.key, s.color]));
+    stackChart("#ch-st-seats", S.years, S.seats, ser.map(s => ({...s, name: s.key === "Others" ? "Other parties" : s.key === "IND" ? "Independents" : `${s.key} – ${s.name}`})));
+    lineChart("#ch-st-share", S.years, ser.map(s => ({name: s.key === "Others" ? "Other parties" : s.key === "IND" ? "Independents" : s.key,
+      color: s.color, values: s.share, label: !["Others","IND"].includes(s.key)})), {aria: "Vote share by party in " + ss.value, pct: true, hideZero: true});
+    table("#tb-st", ["Election", "Seats", "Turnout", ...ser.flatMap(s => [s.key + " won", s.key + " %"])],
+      S.years.map((y, i) => [y, S.seats[i], S.turnout[i] != null ? S.turnout[i].toFixed(1) + "%" : "–",
+        ...ser.flatMap(s => [s.won[i], s.share[i] != null ? s.share[i].toFixed(1) + "%" : "–"])]));
+  };
+  ss.onchange = drawState; drawState();
+
+  // heat table: modern states x elections
+  const hy = Y;
+  let h = `<table class="heat"><thead><tr><th>State / UT</th>${hy.map(y => `<th>${y}</th>`).join("")}</tr></thead><tbody>`;
+  for (const n of current.concat(historic)) {
+    const S = D.states[n];
+    h += `<tr><td class="l">${n}</td>` + hy.map(y => {
+      const i = S.years.indexOf(y); if (i < 0) return "<td></td>";
+      const best = S.series.filter(s => s.won[i] > 0 && s.key !== "Others")
+        .sort((a, b) => b.won[i] - a.won[i] || (b.share[i] || 0) - (a.share[i] || 0))[0];
+      if (!best) return `<td class="small">–</td>`;
+      const label = best.key === "IND" ? "IND" : best.key, v = FIXED[best.key];
+      const dot = v && best.key !== "IND" ? `<span class="dot" style="background:var(${v})"></span>` : `<span class="dot" style="background:transparent;border:1px solid var(--text-muted)"></span>`;
+      return `<td title="${best.name}: ${best.won[i]} of ${S.seats[i]} seats">${dot}${label} ${best.won[i]}/${S.seats[i]}</td>`;
+    }).join("") + "</tr>";
+  }
+  $("#heat").innerHTML = h + "</tbody></table>";
+
+  $("#notes").innerHTML = `<p><b>Source.</b> Election Commission of India statistical reports for each general election:
+    PDF volumes 1951–2009 (old.eci.gov.in archive) and the "Constituency Wise Detailed Result" spreadsheets for 2014, 2019 and 2024.
+    Every constituency's candidate votes were checked against the valid-vote total ECI prints for it.</p>
+    <p><b>Conventions.</b> 1985 (Assam, Punjab) and 1992 (Punjab) were deferred polls; they are counted with 1984 and 1991.
+    Vote shares use ECI's definition of valid votes, which leaves out NOTA (2014 onwards); figures that include NOTA in the base,
+    common in the press, are about 1% lower. In 1951 and 1957 some constituencies elected two or three members.
+    Madras (1957–67) and Mysore (1957–71) are shown as Tamil Nadu and Karnataka; units that were split or merged (Bombay, Hyderabad, PEPSU…) keep their names.</p>
+    <p><b>Data notes.</b></p><ul>${D.notes.map(n => `<li>${n}</li>`).join("")}</ul>`;
+}
+renderAll();
+$("#theme").onclick = () => { const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme = dark ? "light" : "dark"; renderAll(); };
+</script>
+</body>
+</html>
