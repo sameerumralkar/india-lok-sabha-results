@@ -48,11 +48,16 @@ def fetch_file(sess: requests.Session, slug: str, out: Path) -> list:
     sess.get(page, timeout=60)
     terms = sess.get(page + "?do=download", headers={"Referer": page}, timeout=60).text
     m = re.search(r"confirm=1&amp;csrfKey=([0-9a-f]+)", terms)
-    if not m:
+    direct = re.search(r"do=download&amp;r=\d+&amp;confirm=1&amp;t=1&amp;csrfKey=([0-9a-f]+)", terms)
+    if m:  # terms page first, then the list of files
+        key = m.group(1)
+        listing = sess.get(f"{page}?do=download&confirm=1&csrfKey={key}",
+                           headers={"Referer": page + "?do=download"}, timeout=60)
+    elif direct:  # some pages have no terms step and list the files straight away
+        key = direct.group(1)
+        listing = sess.get(page + "?do=download", headers={"Referer": page}, timeout=60)
+    else:
         raise RuntimeError(f"no csrfKey for {slug}")
-    key = m.group(1)
-    listing = sess.get(f"{page}?do=download&confirm=1&csrfKey={key}",
-                       headers={"Referer": page + "?do=download"}, timeout=60)
     rids = sorted(set(re.findall(r"do=download&amp;r=(\d+)&amp;confirm=1&amp;t=1", listing.text)))
     got = []
     if not rids:  # single file: the confirm URL returns the binary directly

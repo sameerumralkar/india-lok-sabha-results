@@ -14,23 +14,25 @@ from pathlib import Path
 CONST_RE = re.compile(
     r"^Constituency\s*:?\s*(\d+)\s*\.?\s*-?\s*(.+?)(?:\s+NUMBER OF SEATS\s*:?\s*(\d+))?\s*$", re.I)
 CAND_RE = re.compile(
-    r"^(\d+)\s*\.\s*(.+?)\s+(?:(M|F|O|MALE|FEMALE|THIRD|TG)\s+)?"
-    r"(?:(GEN|SC|ST)\s+)?(?:(\d{2,3})\s+)?(\S+)\s+(\d+)\s+(-?[\d.]+\s*%|#Num!|-)\s*$")
+    r"^(\d+)\s*\.\s*(.+?)\s+(?:(M|F|W|O|MALE|FEMALE|THIRD|TG)\s+)?"
+    r"(?:(GEN|SC|ST)\s+)?(?:(\d{2,3})\s+)?(\S+)\s+(\d+)\s+(-?[\d.]+\s*%?|#Num!|-)\s*$")
 FOOT_RE = re.compile(
     r"ELECTORS\s*:?\s*(\d+).*?VOTERS\s*:?\s*(\d+).*?POLL PERCENTAGE\s*:?\s*([\d.]+)\s*%"
     r".*?VALID VOTES\s*:?\s*(\d+)", re.I)
 # 2004/2009 layout: N[.] NAME SEX AGE CAT PARTY GENERAL POSTAL TOTAL [% %]
 CAND2_RE = re.compile(
-    r"^(\d+)\s*\.?\s+(.+?)\s+(M|F|O|TG)\s+(?:(\d{2,3})\s+)?(GEN|SC|ST)\s+(\S+)\s+"
-    r"(\d+)\s+(\d+)\s+(\d+)(?:\s+[\d.]+\s+([\d.]+))?\s*$")
+    r"^(\d+)\s*\.?\s+(.+?)\s+(M|F|O|TG)\s+(?:(\d{2,3})\s+)?(GEN|SC|ST|BL|SNGH|SANGHA|SG|OBC)\s+(\S+)\s+"
+    r"(\d+)\s+(\d+|\d[\d.]*E\+?\d*)\s+(\d+)(?:\s+[\d.]+\s+([\d.]+))?\s*$")  # postal may print as '1E+
 # 2014 PDF adds a free-text Symbol column between party and votes
 CAND3_RE = re.compile(
-    r"^(\d+)\s+(.+?)\s+(M|F|O|TG)\s+(\d{2,3})\s+(GEN|SC|ST)\s+(\S+)\s+.*?\s*"
-    r"(\d+)\s+(\d+)\s+(\d+)\s+[\d.]+\s+([\d.]+)\s*$")
-NOTA_RE = re.compile(r"^(\d+)\s+None of the Above\s+NOTA\s+NOTA\s+(\d+)\s+(\d+)\s+(\d+)\s+[\d.]+\s+([\d.]+)", re.I)
-TOTAL_RE = re.compile(r"^TOTAL\s*:\s*(\d+)\s+(\d+)\s+(\d+)")
+    r"^(\d+)\s+(.+?)\s+(M|F|O|TG)\s+(\d{2,3})\s+(GEN|SC|ST|BL|SNGH|SANGHA|SG|OBC)\s+(\S+)\s+.*?\s*"
+    r"(\d+)\s+(\d+)\s+(\d+)\s+(?:[\d.]+\s+)?([\d.]+)\s*$")
+NOTA_RE = re.compile(r"^(\d+)\s+None of the Above\s+NOTA\s+NOTA\s+(\d+)\s+(\d+)\s+(\d+)\s+(?:[\d.]+\s+)?([\d.]+)", re.I)
+TOTAL_RE = re.compile(r"^(?:TURNOUT\s+)?TOTAL\s*:\s*(\d+)\s+(\d+)\s+(\d+)")
 # '( Total Electors N )'; the PDF sometimes shifts the paren one letter left: 'Island(s Total Electors N )'
-ELECTORS_IN_HEADER = re.compile(r"\((\w?)\s*Total Electors\s*(\d+)\s*\)", re.I)
+ELECTORS_IN_HEADER = re.compile(r"(?:\((\w?)\s*Total Electors\s*(\d+)\s*\)|()\s*TOTAL ELECTORS\s*:\s*(\d+)\s*$)", re.I)
+# later layout: '1 . NAME M 54 GEN SDF Uncontested'
+UNCONTESTED2_RE = re.compile(r"^(\d+)\s*\.?\s*(.+?)\s+(M|F|W|O)\s+(?:\d{2,3}\s+)?(?:[A-Z]{2,6}\s+)?(\S+)\s+Uncontested\s*$", re.I)
 UNCONTESTED_RE = re.compile(r"^(\d+)\s*\.\s*(.+?)\s+(\S+)\s+RETURNED\s+UN", re.I)
 PAGE_NOISE = re.compile(
     r"^(rpt|GENERAL ELECTIONS?\b|Election Commission|No\.\s*CANDIDATE|DETAILED RESULTS|Page \d|\d+$|@@PAGE"
@@ -74,13 +76,14 @@ def detailed_pages(text: str):
     for page in text.split("\f"):
         head = "\n".join(page.split("\n")[:5]).upper()
         if ("DETAILED RESULTS" in head and "CONTENTS" not in head) or "SL NO CANDIDATE" in page.upper() \
-                or re.search(r"^No\.\s*CANDIDATES?\s+SEX\s+AGE\s+CATEGORY\s+PARTY", page, re.M | re.I):
+                or re.search(r"^No\.\s*CANDIDATES?\s+(SEX\s+)?(AGE\s+CATEGORY\s+)?PARTY", page, re.M | re.I):
             yield _join_split_headers(page.split("\n"))
 
 
-def parse_text(text: str, year: int):
+def parse_text(text: str, year: int, fixed_state: str = None):
+    """fixed_state: assembly reports cover one state and print no state headers."""
     rows, consts = [], []
-    state = None
+    state = fixed_state
     cur = None
     pending_name = None  # candidate name wrapped onto two lines
 
@@ -96,19 +99,30 @@ def parse_text(text: str, year: int):
             if not line or PAGE_NOISE.match(line):
                 continue
             m = CONST_RE.match(line)
+            if m and cur and not cur["foot"] and cur["pc_no"] == int(m.group(1)):
+                continue  # header repeated at the top of a continuation page
             if m:
                 close()
                 name = m.group(2).strip(" .-")
                 em = ELECTORS_IN_HEADER.search(name)
-                name = ELECTORS_IN_HEADER.sub(lambda mm: mm.group(1), name).strip(" .-")
+                name = ELECTORS_IN_HEADER.sub(lambda mm: mm.group(1) or "", name).strip(" .-")
                 cur = {"state": state, "pc_no": int(m.group(1)), "pc_name": name,
                        "seats": int(m.group(3) or 1), "cands": [], "foot": None,
-                       "electors": int(em.group(2)) if em else None}
+                       "electors": int(em.group(2) or em.group(4)) if em else None}
                 pending_name = None
                 continue
             m = FOOT_RE.search(line)
             if m and cur:
                 cur["foot"] = tuple(int(m.group(i)) for i in (1, 2, 4))
+                continue
+            # 2005-07 assembly reports: the AC is a bare 'NN. NAME' line (no 'Constituency')
+            bare = fixed_state and (cur is None or cur["foot"]) and \
+                re.match(r"^(\d+)\s*\.\s*([A-Za-z][^\d%]*)$", line)
+            if bare:
+                close()
+                cur = {"state": state, "pc_no": int(bare.group(1)), "pc_name": bare.group(2).strip(" .-"),
+                       "seats": 1, "cands": [], "foot": None, "electors": None}
+                pending_name = None
                 continue
             m = TOTAL_RE.match(line)
             if m and cur:
@@ -118,8 +132,8 @@ def parse_text(text: str, year: int):
             if m and cur is not None and not cur["foot"]:
                 cur["cands"].append({"name": m.group(2).strip(), "sex": m.group(3)[:1],
                                      "party": m.group(6), "votes": int(m.group(9)),
-                                     "postal": int(m.group(8)), "age": m.group(4),
-                                     "category": m.group(5),
+                                     "postal": int(m.group(8)) if m.group(8).isdigit() else None,
+                                     "age": m.group(4), "category": m.group(5),
                                      "pct_polled": float(m.group(10)) if m.group(10) else None})
                 continue
             m = NOTA_RE.match(line)
@@ -135,6 +149,11 @@ def parse_text(text: str, year: int):
                                      "postal": int(m.group(8)), "age": m.group(4),
                                      "category": m.group(5), "pct_polled": float(m.group(10))})
                 continue
+            m = UNCONTESTED2_RE.match(line)
+            if m and cur is not None and not cur["foot"]:
+                cur["cands"].append({"name": m.group(2).strip(), "sex": {"W": "F"}.get(m.group(3).upper(), m.group(3).upper()),
+                                     "party": m.group(4), "votes": 0, "returned": True})
+                continue
             m = UNCONTESTED_RE.match(line)
             if m and cur is not None:
                 cur["cands"].append({"name": m.group(2).strip(), "sex": None,
@@ -146,12 +165,12 @@ def parse_text(text: str, year: int):
                 if pending_name:
                     name = f"{pending_name} {name}"
                     pending_name = None
-                sex = (m.group(3) or "")[:1] or None
+                sex = {"W": "F"}.get((m.group(3) or "")[:1], (m.group(3) or "")[:1]) or None
                 cur["cands"].append({"name": name, "sex": sex, "party": m.group(6),
                                      "votes": int(m.group(7))})
                 continue
             if cur is None or (cur and cur["foot"]):
-                if is_state_line(line):
+                if fixed_state is None and is_state_line(line):
                     close()
                     state = line.title() if line.isupper() else line
                     continue
@@ -162,8 +181,15 @@ def parse_text(text: str, year: int):
             elif state and line.upper() == state.upper():
                 continue  # state name repeated at the top of a continuation page
             elif cur is not None and not cur["foot"] and cur["cands"] and not re.search(r"\d", line):
-                if line.isupper():  # Title-case tails are wrapped party symbols (2014)
-                    cur["cands"][-1]["name"] += " " + line  # wrapped tail of a candidate name
+                # Wrapped name tails are UPPER CASE; Title-case words are wrapped party
+                # symbols ('KUMAR Rickshaw' -> keep 'KUMAR').
+                tail = []
+                for tok in line.split():
+                    if not (tok.isupper() or not any(ch.isalpha() for ch in tok)):
+                        break
+                    tail.append(tok)
+                if tail and any(ch.isalpha() for ch in "".join(tail)):
+                    cur["cands"][-1]["name"] += " " + " ".join(tail)
             elif cur is not None and not cur["foot"] and cur["cands"] == [] and not line[0].isdigit():
                 cur["pc_name"] += " " + line  # wrapped constituency name
     close()

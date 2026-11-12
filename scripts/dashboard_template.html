@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lok Sabha results 1951–2024: party trends</title>
+<title>India election results: Lok Sabha and state assemblies</title>
 <style>
 .viz-root {
   color-scheme: light;
@@ -75,6 +75,15 @@ th { color: var(--text-secondary); font-weight: 600; position: sticky; top: 0; b
 .heat td span.c { display: inline-block; min-width: 54px; padding: 2px 4px; border-radius: 4px; }
 details { margin-top: 8px; }
 summary { cursor: pointer; color: var(--text-secondary); font-size: 12.5px; }
+.menu { display: flex; gap: 6px; margin: 0 0 18px; border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  position: sticky; top: 0; z-index: 5; background: var(--surface-0); padding-top: 6px; }
+.menu a { padding: 8px 14px; color: var(--text-secondary); text-decoration: none; font-weight: 600;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.menu a[aria-current="page"] { color: var(--text-primary); border-bottom-color: var(--text-primary); }
+.menu a:hover { color: var(--text-primary); }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 11.5px; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--grid); white-space: nowrap; }
+.strip td { vertical-align: top; }
 .theme { position: absolute; top: 28px; right: clamp(14px, 3vw, 40px); }
 a { color: var(--s1); }
 </style>
@@ -83,6 +92,11 @@ a { color: var(--s1); }
 <div class="viz-root">
 <button class="theme" id="theme" aria-label="Toggle dark mode">◐ Theme</button>
 <div class="wrap">
+  <nav class="menu" aria-label="Election type">
+    <a href="#lok-sabha" data-view="lok-sabha">Lok Sabha</a>
+    <a href="#state-elections" data-view="state-elections">State elections</a>
+  </nav>
+<div class="view" id="view-lok-sabha">
   <h1>Lok Sabha elections, 1951–2024</h1>
   <p class="sub">Every general-election result from the Election Commission of India's statistical reports,
     rebuilt seat by seat. National lines group parties into their long-run lineages; the state explorer shows parties as ECI recorded them.</p>
@@ -130,6 +144,37 @@ a { color: var(--s1); }
     <h2>About the data</h2>
     <div class="card small" id="notes"></div>
   </section>
+</div>
+
+<div class="view" id="view-state-elections" hidden>
+  <h1>State assembly elections</h1>
+  <p class="sub">Every State Legislative Assembly election in ECI's statistical reports, rebuilt seat by seat,
+    from the first assemblies of 1951–52 to the latest polls. States are shown as they existed at each election.</p>
+  <div class="controls"><label for="ae-state">State</label><select id="ae-state"></select>
+    <span class="small" id="ae-note"></span></div>
+  <div class="kpis" id="ae-kpis"></div>
+  <section>
+    <div class="grid2">
+      <div class="card"><h3>Seats won</h3><p class="cap">Each bar is one assembly election; the tick marks the majority.</p>
+        <div class="legend" id="lg-ae"></div><div id="ch-ae-seats"></div></div>
+      <div class="card"><h3>Vote share (%)</h3><p class="cap">Gaps mean the party did not contest that election.</p>
+        <div class="legend" id="lg-ae2"></div><div id="ch-ae-share"></div></div>
+    </div>
+  </section>
+  <section>
+    <h2>Every election in this state</h2>
+    <div class="card"><div class="scroll" id="tb-ae"></div></div>
+  </section>
+  <section>
+    <h2>All states at a glance</h2>
+    <p class="small">Largest party at each assembly election, oldest first. Bold = won a majority on its own. Click a state to open it.</p>
+    <div class="card"><div class="scroll" id="ae-strip"></div></div>
+  </section>
+  <section>
+    <h2>About the assembly data</h2>
+    <div class="card small" id="ae-notes"></div>
+  </section>
+</div>
 </div>
 <div class="tip" id="tip" role="status"></div>
 </div>
@@ -207,7 +252,7 @@ function lineChart(target, years, series, opt){
 }
 
 // ---- stacked bars (seats per election) with per-bar tooltip
-function stackChart(target, years, totals, series){
+function stackChart(target, years, totals, series, majority){
   const box = $(target); box.innerHTML = "";
   const W = 560, H = 300, m = {l: 34, r: 10, t: 10, b: 26};
   const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Seats won by party per election"}, box);
@@ -231,6 +276,8 @@ function stackChart(target, years, totals, series){
                   : `M${x0},${y0}V${y0 - h}H${x0 + bw}V${y0}Z`;
       el("path", {d, fill: css(s.color)}, svg);
     });
+    if (majority) el("line", {x1: cx - bw / 2 - 3, x2: cx + bw / 2 + 3, y1: y(majority[i]), y2: y(majority[i]),
+      stroke: css("--text-primary"), "stroke-width": 1.5, "stroke-dasharray": "3 2"}, svg);
     const hit = el("rect", {x: m.l + band * i, y: m.t, width: band, height: H - m.t - m.b, fill: "transparent"}, svg);
     hit.addEventListener("pointermove", ev => showTip(`<b>${yr} · ${totals[i]} seat${totals[i] > 1 ? "s" : ""}</b>` +
       segs.slice().reverse().map(s => `<div class="row"><span><i style="background:var(${s.color})"></i>${s.name}</span><span>${s.won[i]}</span></div>`).join("")
@@ -322,10 +369,75 @@ function renderAll(){
     Madras (1957–67) and Mysore (1957–71) are shown as Tamil Nadu and Karnataka; units that were split or merged (Bombay, Hyderabad, PEPSU…) keep their names.</p>
     <p><b>Data notes.</b></p><ul>${D.notes.map(n => `<li>${n}</li>`).join("")}</ul>`;
 }
-renderAll();
+function renderAE(){
+  const A = D.assembly || {}; const sel = $("#ae-state"), keep = sel.value;
+  const names = Object.keys(A).sort();
+  const latest = n => A[n].years[A[n].years.length - 1];
+  const cur = names.filter(n => latest(n) >= 2010), old = names.filter(n => latest(n) < 2010);
+  sel.innerHTML = `<optgroup label="States & UTs">${cur.map(n => `<option>${n}</option>`).join("")}</optgroup>` +
+    (old.length ? `<optgroup label="Former states">${old.map(n => `<option>${n}</option>`).join("")}</optgroup>` : "");
+  sel.value = keep || (cur.includes("Uttar Pradesh") ? "Uttar Pradesh" : names[0]);
+  const lbl = s => s.key === "Others" ? "Other parties" : s.key === "IND" ? "Independents" : s.key;
+  const draw = () => {
+    const S = A[sel.value]; if (!S) return;
+    const cols = stateColors(S.series), ser = S.series.map(s => ({...s, color: cols[s.key]}));
+    const n = S.years.length, li = n - 1, maj = S.seats.map(x => Math.floor(x / 2) + 1);
+    const ranked = i => ser.filter(s => s.key !== "Others").slice().sort((a, b) => b.won[i] - a.won[i] || (b.share[i] || 0) - (a.share[i] || 0));
+    const top = ranked(li)[0], second = ranked(li)[1];
+    $("#ae-note").textContent = `${n} election${n > 1 ? "s" : ""} · ${S.years[0]}–${S.years[li]} · ${S.seats[li]} seats`;
+    $("#ae-kpis").innerHTML = [
+      [S.years[li], "latest assembly election"],
+      [`${top.won[li]} / ${S.seats[li]}`, `${lbl(top)} seats (${top.share[li] != null ? top.share[li].toFixed(1) + "% vote" : "–"})${top.won[li] >= maj[li] ? " · majority" : ""}`],
+      [second ? second.won[li] : "–", second ? `${lbl(second)} seats (${second.share[li] != null ? second.share[li].toFixed(1) + "% vote" : "–"})` : ""],
+      [S.turnout && S.turnout[li] != null ? S.turnout[li].toFixed(1) + "%" : "–", "turnout"],
+    ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+    legend("#lg-ae", ser.map(s => [lbl(s), s.color, true])); legend("#lg-ae2", ser.map(s => [lbl(s), s.color]));
+    stackChart("#ch-ae-seats", S.years, S.seats, ser.map(s => ({...s, name: ["Others","IND"].includes(s.key) ? lbl(s) : `${s.key} – ${s.name}`})), maj);
+    lineChart("#ch-ae-share", S.years, ser.map(s => ({name: lbl(s), color: s.color, values: s.share, label: !["Others","IND"].includes(s.key)})),
+      {aria: "Assembly vote share by party in " + sel.value, pct: true, hideZero: true});
+    table("#tb-ae", ["Election", "Seats", "Largest party", "Won", "Vote %", "Majority?", "Runner-up", "Won", "Vote %", "Turnout", "Candidates"],
+      S.years.map((y, i) => { const r = ranked(i), a = r[0], b = r[1] || {key: "–", won: [], share: []};
+        return [y, S.seats[i], lbl(a), a.won[i], a.share[i] != null ? a.share[i].toFixed(1) + "%" : "–", a.won[i] >= maj[i] ? "Yes" : "No",
+          lbl(b), b.won[i] ?? "–", b.share[i] != null ? b.share[i].toFixed(1) + "%" : "–",
+          S.turnout && S.turnout[i] != null ? S.turnout[i].toFixed(1) + "%" : "–", S.candidates ? fmt(S.candidates[i]) : "–"]; }).reverse());
+  };
+  sel.onchange = draw; draw();
+  // strip
+  let h = `<table class="strip"><tbody>`;
+  for (const n of cur.concat(old)) {
+    const S = A[n];
+    const chips = S.years.map((y, i) => {
+      const best = S.series.filter(s => s.key !== "Others" && s.won[i] > 0).sort((a, b) => b.won[i] - a.won[i] || (b.share[i] || 0) - (a.share[i] || 0))[0];
+      if (!best) return `<span class="chip">${y} –</span>`;
+      const v = FIXED[best.key], m = best.won[i] >= Math.floor(S.seats[i] / 2) + 1;
+      const dot = v && best.key !== "IND" ? `<span class="dot" style="background:var(${v})"></span>` : "";
+      return `<span class="chip" title="${best.name}: ${best.won[i]} of ${S.seats[i]}">${dot}${y} ${m ? "<b>" : ""}${lbl(best)} ${best.won[i]}/${S.seats[i]}${m ? "</b>" : ""}</span>`;
+    }).join("");
+    h += `<tr><td class="l"><a href="#state-elections" data-state="${n}">${n}</a></td><td class="l"><div class="chips">${chips}</div></td></tr>`;
+  }
+  $("#ae-strip").innerHTML = h + "</tbody></table>";
+  $("#ae-strip").querySelectorAll("a[data-state]").forEach(a => a.onclick = () => { sel.value = a.dataset.state; draw(); scrollTo({top: 0, behavior: "smooth"}); });
+  const R = D.ae_report || [], ok = R.filter(r => r.status === "OK").length;
+  $("#ae-notes").innerHTML = `<p><b>Source.</b> ECI statistical reports for each State Legislative Assembly election:
+    PDF reports (text extracted and parsed) for older polls and ECI's "Detailed Results" spreadsheets where published (about 2017 onwards).</p>
+    <p><b>Checks.</b> ${R.length} state elections loaded; in ${ok} of them every constituency's candidate votes add up exactly to ECI's printed valid-vote total.
+    Vote shares exclude NOTA from valid votes, as ECI does. Parties are shown as ECI recorded them: new parties that were not yet
+    registered appear as Independents (for example TDP in Andhra Pradesh 1983 and AGP in Assam 1985). Where ECI published two versions of one election (e.g. with and without a countermanded seat), the complete one is used.</p>
+    ${D.ae_notes.length ? `<details><summary>${D.ae_notes.length} data notes</summary><ul>${D.ae_notes.map(n => `<li>${n}</li>`).join("")}</ul></details>` : ""}`;
+}
+
+function route(){
+  const v = location.hash === "#state-elections" ? "state-elections" : "lok-sabha";
+  document.querySelectorAll(".view").forEach(e => e.hidden = e.id !== "view-" + v);
+  document.querySelectorAll(".menu a").forEach(a =>
+    a.dataset.view === v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
+  if (v === "state-elections") renderAE(); else renderAll();
+}
+addEventListener("hashchange", () => { route(); scrollTo(0, 0); });
+route();
 $("#theme").onclick = () => { const r = document.documentElement;
   const dark = r.dataset.theme ? r.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  r.dataset.theme = dark ? "light" : "dark"; renderAll(); };
+  r.dataset.theme = dark ? "light" : "dark"; route(); };
 </script>
 </body>
 </html>

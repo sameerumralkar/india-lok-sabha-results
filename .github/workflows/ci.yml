@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: pip install pdfplumber pandas openpyxl xlrd requests
+        run: pip install pdfplumber pymupdf pandas openpyxl xlrd requests
       - name: Compile scripts
         run: python -m compileall -q scripts tests
       - name: Data integrity tests

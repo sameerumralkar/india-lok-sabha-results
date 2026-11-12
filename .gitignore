@@ -12,3 +12,6 @@ raw_download.log
 *.pem
 *.key
 .DS_Store
+*.log
+data/state_assemblies.db
+data/ae_candidates.csv

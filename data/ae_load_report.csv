@@ -1,0 +1,422 @@
+state,year,source,acs,seats,candidates,mismatched_acs,missing_acs,status
+Andhra Pradesh,1955,pdf,167,196,581,0,0,OK
+Andhra Pradesh,1957,pdf,85,105,297,0,0,OK
+Andhra Pradesh,1962,pdf,300,300,988,0,0,OK
+Andhra Pradesh,1967,pdf,287,287,1067,0,0,OK
+Andhra Pradesh,1972,pdf,287,287,1013,0,0,OK
+Andhra Pradesh,1978,pdf,294,294,1538,0,0,OK
+Andhra Pradesh,1983,pdf,294,294,1720,0,0,OK
+Andhra Pradesh,1985,pdf,294,294,1972,0,0,OK
+Andhra Pradesh,1989,pdf,294,294,1704,0,0,OK
+Andhra Pradesh,1994,pdf,294,294,3219,0,0,OK
+Andhra Pradesh,1999,pdf,294,294,2104,0,0,OK
+Andhra Pradesh,2004,pdf,294,294,1896,0,0,OK
+Andhra Pradesh,2009,pdf,294,294,3655,0,0,OK
+Andhra Pradesh,2014,pdf,294,294,3910,0,0,OK
+Andhra Pradesh,2019,xlsx,175,175,2118,0,0,OK
+Andhra Pradesh,2024,xlsx,175,175,2387,0,0,OK
+Arunachal Pradesh,1978,pdf,30,30,86,0,0,OK
+Arunachal Pradesh,1980,pdf,30,30,95,0,0,OK
+Arunachal Pradesh,1984,pdf,30,30,115,0,0,OK
+Arunachal Pradesh,1990,pdf,60,60,170,0,0,OK
+Arunachal Pradesh,1995,pdf,60,60,173,0,0,OK
+Arunachal Pradesh,1999,pdf,60,60,172,0,0,OK
+Arunachal Pradesh,2004,pdf,57,57,165,0,3,CHECK
+Arunachal Pradesh,2009,pdf,60,60,157,0,0,OK
+Arunachal Pradesh,2014,pdf,0,0,0,,,NO DATA
+Arunachal Pradesh,2019,xlsx,60,60,184,0,0,OK
+Arunachal Pradesh,2024,xlsx,50,50,133,0,10,CHECK
+Assam,1951,pdf,91,104,458,0,3,CHECK
+Assam,1957,pdf,94,108,307,0,0,OK
+Assam,1962,pdf,105,105,409,0,0,OK
+Assam,1967,pdf,125,125,492,0,1,CHECK
+Assam,1972,pdf,114,114,478,0,12,CHECK
+Assam,1978,pdf,126,126,938,0,0,OK
+Assam,1983,pdf,109,109,471,0,17,CHECK
+Assam,1985,pdf,126,126,1133,0,0,OK
+Assam,1991,pdf,126,126,1657,0,0,OK
+Assam,1996,pdf,122,122,1228,0,4,CHECK
+Assam,2001,pdf,126,126,916,0,0,OK
+Assam,2006,pdf,126,126,997,0,0,OK
+Assam,2011,pdf,126,126,981,0,0,OK
+Assam,2016,xlsx,126,126,1064,0,0,OK
+Assam,2021,xlsx,126,126,946,0,0,OK
+Assam,2026,xlsx,126,126,722,0,0,OK
+Bihar,1951,pdf,276,327,1607,1,0,CHECK
+Bihar,1957,pdf,264,318,1338,0,0,OK
+Bihar,1962,pdf,318,318,1529,0,0,OK
+Bihar,1967,pdf,318,318,2025,0,0,OK
+Bihar,1969,pdf,318,318,2154,0,0,OK
+Bihar,1972,pdf,318,318,1983,0,0,OK
+Bihar,1977,pdf,324,324,2994,0,0,OK
+Bihar,1980,pdf,324,324,3002,0,0,OK
+Bihar,1985,pdf,324,324,4237,0,0,OK
+Bihar,1990,pdf,324,324,6629,0,0,OK
+Bihar,1995,pdf,324,324,8410,0,0,OK
+Bihar,2000,pdf,324,324,3941,0,0,OK
+Bihar,2005,pdf,0,0,0,,,NO DATA
+Bihar,2010,pdf,243,243,3523,0,0,OK
+Bihar,2015,pdf,240,240,3411,0,3,CHECK
+Bihar,2020,xlsx,243,243,3733,0,0,OK
+Bihar,2025,xlsx,243,243,2616,0,0,OK
+Chhattisgarh,2003,pdf,90,90,819,0,0,OK
+Chhattisgarh,2008,pdf,90,90,1065,1,0,CHECK
+Chhattisgarh,2013,pdf,90,90,986,0,0,OK
+Chhattisgarh,2018,pdf,90,90,1269,0,0,OK
+Chhattisgarh,2023,xlsx,90,90,1181,0,0,OK
+Delhi,1951,pdf,42,48,187,0,0,OK
+Delhi,1972,pdf,56,56,270,0,0,OK
+Delhi,1977,pdf,56,56,249,0,0,OK
+Delhi,1983,pdf,55,55,406,0,1,CHECK
+Delhi,1993,pdf,70,70,1316,0,0,OK
+Delhi,1998,pdf,70,70,815,0,0,OK
+Delhi,2003,pdf,70,70,817,0,0,OK
+Delhi,2008,pdf,70,70,875,0,0,OK
+Delhi,2013,pdf,70,70,810,0,0,OK
+Delhi,2015,pdf,70,70,673,0,0,OK
+Delhi,2020,xlsx,70,70,672,0,0,OK
+Delhi,2025,xlsx,70,70,699,0,0,OK
+Goa,1967,pdf,30,30,226,0,0,OK
+Goa,1972,pdf,30,30,138,0,0,OK
+Goa,1977,pdf,30,30,145,0,0,OK
+Goa,1980,pdf,30,30,177,0,0,OK
+Goa,1984,pdf,30,30,242,0,0,OK
+Goa,1989,pdf,40,40,252,0,0,OK
+Goa,1994,pdf,40,40,311,0,0,OK
+Goa,1999,pdf,40,40,210,0,0,OK
+Goa,2002,pdf,40,40,212,0,0,OK
+Goa,2007,pdf,40,40,202,0,0,OK
+Goa,2012,pdf,40,40,215,0,0,OK
+Goa,2017,xlsx,40,40,251,0,0,OK
+Goa,2022,xlsx,40,40,301,0,0,OK
+Gujarat,1962,pdf,154,154,519,0,0,OK
+Gujarat,1967,pdf,168,168,613,0,0,OK
+Gujarat,1972,pdf,168,168,822,0,0,OK
+Gujarat,1975,pdf,181,181,848,0,1,CHECK
+Gujarat,1980,pdf,182,182,974,0,0,OK
+Gujarat,1985,pdf,182,182,1137,0,0,OK
+Gujarat,1990,pdf,182,182,1889,0,0,OK
+Gujarat,1995,pdf,182,182,2545,0,0,OK
+Gujarat,1998,pdf,182,182,1125,0,0,OK
+Gujarat,2002,pdf,182,182,1000,0,0,OK
+Gujarat,2007,pdf,0,0,0,,,NO DATA
+Gujarat,2012,pdf,0,0,0,,,NO DATA
+Gujarat,2017,xlsx,186,186,1832,0,0,OK
+Gujarat,2022,xlsx,182,182,1621,0,0,OK
+Haryana,1967,pdf,81,81,471,0,0,OK
+Haryana,1968,pdf,81,81,398,0,0,OK
+Haryana,1972,pdf,81,81,384,0,0,OK
+Haryana,1977,pdf,90,90,671,0,0,OK
+Haryana,1982,pdf,90,90,1095,0,0,OK
+Haryana,1987,pdf,90,90,1322,0,0,OK
+Haryana,1991,pdf,90,90,1885,0,0,OK
+Haryana,1996,pdf,90,90,2608,0,0,OK
+Haryana,2000,pdf,90,90,965,0,0,OK
+Haryana,2005,pdf,0,0,0,,,NO DATA
+Haryana,2009,pdf,90,90,1222,0,0,OK
+Haryana,2014,pdf,90,90,1351,0,0,OK
+Haryana,2019,xlsx,90,90,1169,0,0,OK
+Haryana,2024,xlsx,90,90,1031,0,0,OK
+Himachal Pradesh,1951,pdf,28,36,135,0,0,OK
+Himachal Pradesh,1967,pdf,60,60,269,0,0,OK
+Himachal Pradesh,1972,pdf,68,68,297,0,0,OK
+Himachal Pradesh,1977,pdf,68,68,330,0,0,OK
+Himachal Pradesh,1982,pdf,68,68,441,0,0,OK
+Himachal Pradesh,1985,pdf,68,68,294,0,0,OK
+Himachal Pradesh,1990,pdf,67,67,446,0,1,CHECK
+Himachal Pradesh,1993,pdf,68,68,416,0,0,OK
+Himachal Pradesh,1998,pdf,68,68,369,0,0,OK
+Himachal Pradesh,2003,pdf,68,68,408,0,0,OK
+Himachal Pradesh,2007,pdf,0,0,0,,,NO DATA
+Himachal Pradesh,2012,pdf,68,68,459,0,0,OK
+Himachal Pradesh,2017,xlsx,68,68,338,0,0,OK
+Himachal Pradesh,2022,xlsx,68,68,412,0,0,OK
+Jammu & Kashmir,1962,pdf,75,75,174,0,0,OK
+Jammu & Kashmir,1967,pdf,75,75,206,0,0,OK
+Jammu & Kashmir,1972,pdf,75,75,342,0,0,OK
+Jammu & Kashmir,1977,pdf,76,76,409,0,0,OK
+Jammu & Kashmir,1983,pdf,76,76,513,0,0,OK
+Jammu & Kashmir,1987,pdf,76,76,528,0,0,OK
+Jammu & Kashmir,1996,pdf,87,87,547,0,0,OK
+Jammu & Kashmir,2002,pdf,87,87,709,0,0,OK
+Jammu & Kashmir,2008,pdf,87,87,1354,0,0,OK
+Jammu & Kashmir,2014,pdf,87,87,831,0,0,OK
+Jammu & Kashmir,2024,xlsx,90,90,873,0,0,OK
+Jharkhand,2005,pdf,0,0,0,,,NO DATA
+Jharkhand,2009,pdf,81,81,1491,0,0,OK
+Jharkhand,2014,pdf,81,81,1136,0,0,OK
+Jharkhand,2019,xlsx,81,81,1216,0,0,OK
+Jharkhand,2024,xlsx,81,81,1211,0,0,OK
+Karnataka,1957,pdf,179,208,561,0,0,OK
+Karnataka,1962,pdf,208,208,679,0,0,OK
+Karnataka,1967,pdf,216,216,727,0,0,OK
+Karnataka,1972,pdf,216,216,820,0,0,OK
+Karnataka,1978,pdf,224,224,1165,0,0,OK
+Karnataka,1983,pdf,224,224,1365,0,0,OK
+Karnataka,1985,pdf,224,224,1795,0,0,OK
+Karnataka,1989,pdf,224,224,2043,0,0,OK
+Karnataka,1994,pdf,224,224,2497,0,0,OK
+Karnataka,1999,pdf,224,224,1341,0,0,OK
+Karnataka,2004,pdf,224,224,1715,0,0,OK
+Karnataka,2008,pdf,224,224,2242,0,0,OK
+Karnataka,2013,pdf,224,224,2948,0,0,OK
+Karnataka,2018,pdf,223,223,2636,0,1,CHECK
+Karnataka,2023,xlsx,224,224,2615,0,0,OK
+Kerala,1957,pdf,114,126,389,0,0,OK
+Kerala,1960,pdf,114,126,312,0,0,OK
+Kerala,1965,pdf,133,133,558,0,0,OK
+Kerala,1967,pdf,133,133,423,0,0,OK
+Kerala,1970,pdf,133,133,505,0,0,OK
+Kerala,1977,pdf,140,140,569,0,0,OK
+Kerala,1980,pdf,140,140,602,0,0,OK
+Kerala,1982,pdf,140,140,699,0,0,OK
+Kerala,1987,pdf,140,140,1254,0,0,OK
+Kerala,1991,pdf,140,140,809,0,0,OK
+Kerala,1996,pdf,140,140,1201,0,0,OK
+Kerala,2001,pdf,140,140,676,0,0,OK
+Kerala,2006,pdf,140,140,931,0,0,OK
+Kerala,2011,pdf,140,140,971,0,0,OK
+Kerala,2016,xlsx,140,140,1203,0,0,OK
+Kerala,2021,xlsx,140,140,957,0,0,OK
+Kerala,2026,xlsx,140,140,883,0,0,OK
+Madhya Pradesh,1951,pdf,184,232,1122,0,0,OK
+Madhya Pradesh,1957,pdf,218,287,1029,0,0,OK
+Madhya Pradesh,1962,pdf,288,288,1336,0,0,OK
+Madhya Pradesh,1967,pdf,296,296,1553,0,0,OK
+Madhya Pradesh,1972,pdf,296,296,1417,0,0,OK
+Madhya Pradesh,1977,pdf,320,320,1994,0,0,OK
+Madhya Pradesh,1980,pdf,320,320,2000,0,0,OK
+Madhya Pradesh,1985,pdf,320,320,2450,0,0,OK
+Madhya Pradesh,1990,pdf,320,320,4216,0,0,OK
+Madhya Pradesh,1993,pdf,320,320,3729,0,0,OK
+Madhya Pradesh,1998,pdf,320,320,2510,0,0,OK
+Madhya Pradesh,2003,pdf,230,230,2171,0,0,OK
+Madhya Pradesh,2008,pdf,230,230,3179,0,0,OK
+Madhya Pradesh,2013,pdf,230,230,2583,0,0,OK
+Madhya Pradesh,2018,pdf,230,230,2899,0,0,OK
+Madhya Pradesh,2023,xlsx,230,230,2534,0,0,OK
+Maharashtra,1962,pdf,264,264,1161,0,0,OK
+Maharashtra,1967,pdf,270,270,1242,0,0,OK
+Maharashtra,1972,pdf,270,270,1196,0,0,OK
+Maharashtra,1978,pdf,288,288,1819,0,0,OK
+Maharashtra,1980,pdf,288,288,1537,0,0,OK
+Maharashtra,1985,pdf,288,288,2230,0,0,OK
+Maharashtra,1990,pdf,288,288,3764,0,0,OK
+Maharashtra,1995,pdf,288,288,4727,0,0,OK
+Maharashtra,1999,pdf,288,288,2006,0,0,OK
+Maharashtra,2004,pdf,288,288,2678,0,0,OK
+Maharashtra,2009,pdf,288,288,3559,0,0,OK
+Maharashtra,2014,pdf,288,288,4119,0,0,OK
+Maharashtra,2019,xlsx,288,288,3237,0,0,OK
+Maharashtra,2024,xlsx,288,288,4136,0,0,OK
+Manipur,1967,pdf,30,30,156,0,0,OK
+Manipur,1972,pdf,60,60,262,0,0,OK
+Manipur,1974,pdf,60,60,265,0,0,OK
+Manipur,1980,pdf,60,60,401,0,0,OK
+Manipur,1984,pdf,60,60,364,0,0,OK
+Manipur,1990,pdf,54,54,254,0,6,CHECK
+Manipur,1995,pdf,60,60,347,0,0,OK
+Manipur,2000,pdf,60,60,401,0,0,OK
+Manipur,2002,pdf,60,60,368,0,0,OK
+Manipur,2007,pdf,60,60,308,0,0,OK
+Manipur,2012,pdf,60,60,279,0,0,OK
+Manipur,2017,xlsx,60,60,266,0,0,OK
+Manipur,2022,xlsx,60,60,265,0,0,OK
+Meghalaya,1972,pdf,60,60,198,0,0,OK
+Meghalaya,1978,pdf,60,60,262,0,0,OK
+Meghalaya,1983,pdf,60,60,317,0,0,OK
+Meghalaya,1988,pdf,60,60,271,0,0,OK
+Meghalaya,1993,pdf,60,60,290,0,0,OK
+Meghalaya,1998,pdf,60,60,308,0,0,OK
+Meghalaya,2003,pdf,60,60,333,0,0,OK
+Meghalaya,2008,pdf,60,60,338,0,0,OK
+Meghalaya,2013,pdf,60,60,345,0,0,OK
+Meghalaya,2018,xlsx,59,59,361,0,1,CHECK
+Meghalaya,2023,xlsx,60,60,375,0,0,OK
+Mizoram,1972,pdf,30,30,155,0,0,OK
+Mizoram,1978,pdf,30,30,154,0,0,OK
+Mizoram,1979,pdf,30,30,150,0,0,OK
+Mizoram,1984,pdf,30,30,134,0,0,OK
+Mizoram,1987,pdf,40,40,145,0,0,OK
+Mizoram,1989,pdf,40,40,162,0,0,OK
+Mizoram,1993,pdf,40,40,121,0,0,OK
+Mizoram,1998,pdf,40,40,221,0,0,OK
+Mizoram,2003,pdf,40,40,192,0,0,OK
+Mizoram,2008,pdf,40,40,206,0,0,OK
+Mizoram,2013,pdf,40,40,142,0,0,OK
+Mizoram,2018,pdf,40,40,209,0,0,OK
+Mizoram,2023,xlsx,40,40,174,0,0,OK
+Nagaland,1964,pdf,40,40,73,0,0,OK
+Nagaland,1969,pdf,40,40,144,0,0,OK
+Nagaland,1974,pdf,60,60,219,0,0,OK
+Nagaland,1977,pdf,60,60,204,0,0,OK
+Nagaland,1982,pdf,60,60,245,0,0,OK
+Nagaland,1987,pdf,60,60,214,0,0,OK
+Nagaland,1989,pdf,60,60,140,0,0,OK
+Nagaland,1993,pdf,60,60,179,0,0,OK
+Nagaland,1998,pdf,60,60,80,0,0,OK
+Nagaland,2003,pdf,60,60,225,0,0,OK
+Nagaland,2008,pdf,60,60,218,0,0,OK
+Nagaland,2013,pdf,60,60,187,0,0,OK
+Nagaland,2018,xlsx,59,59,195,0,1,CHECK
+Nagaland,2023,xlsx,60,60,184,0,0,OK
+Odisha,1951,pdf,107,140,522,0,0,OK
+Odisha,1957,pdf,101,140,508,0,0,OK
+Odisha,1961,pdf,140,140,535,0,0,OK
+Odisha,1967,pdf,140,140,603,0,0,OK
+Odisha,1971,pdf,140,140,835,0,0,OK
+Odisha,1974,pdf,146,146,722,0,1,CHECK
+Odisha,1977,pdf,147,147,604,0,0,OK
+Odisha,1980,pdf,147,147,736,0,0,OK
+Odisha,1985,pdf,147,147,800,0,0,OK
+Odisha,1990,pdf,147,147,913,0,0,OK
+Odisha,1995,pdf,147,147,1413,0,0,OK
+Odisha,2000,pdf,147,147,868,0,0,OK
+Odisha,2004,pdf,147,147,802,0,0,OK
+Odisha,2009,pdf,147,147,1288,0,0,OK
+Odisha,2014,pdf,147,147,1420,0,0,OK
+Odisha,2019,xlsx,146,146,1127,0,1,CHECK
+Odisha,2024,xlsx,147,147,1285,0,0,OK
+Puducherry,1964,pdf,30,30,85,0,0,OK
+Puducherry,1969,pdf,30,30,76,0,0,OK
+Puducherry,1974,pdf,30,30,108,0,0,OK
+Puducherry,1977,pdf,30,30,131,0,0,OK
+Puducherry,1980,pdf,30,30,132,0,0,OK
+Puducherry,1985,pdf,30,30,119,0,0,OK
+Puducherry,1990,pdf,30,30,212,0,0,OK
+Puducherry,1991,pdf,30,30,208,0,0,OK
+Puducherry,1996,pdf,30,30,270,0,0,OK
+Puducherry,2001,pdf,30,30,193,0,0,OK
+Puducherry,2006,pdf,30,30,218,0,0,OK
+Puducherry,2011,pdf,30,30,187,0,0,OK
+Puducherry,2016,xlsx,30,30,344,0,0,OK
+Puducherry,2021,xlsx,30,30,324,0,0,OK
+Puducherry,2026,xlsx,30,30,294,0,0,OK
+Punjab,1951,pdf,105,126,843,0,0,OK
+Punjab,1957,pdf,121,154,586,0,0,OK
+Punjab,1962,pdf,154,154,756,0,0,OK
+Punjab,1967,pdf,104,104,602,0,0,OK
+Punjab,1969,pdf,104,104,471,0,0,OK
+Punjab,1972,pdf,104,104,468,0,0,OK
+Punjab,1977,pdf,117,117,682,0,0,OK
+Punjab,1980,pdf,117,117,722,0,0,OK
+Punjab,1985,pdf,117,117,857,0,0,OK
+Punjab,1992,pdf,117,117,579,0,0,OK
+Punjab,1997,pdf,117,117,693,0,0,OK
+Punjab,2002,pdf,117,117,923,0,0,OK
+Punjab,2007,pdf,116,116,1043,0,1,CHECK
+Punjab,2012,pdf,117,117,1078,0,0,OK
+Punjab,2017,xlsx,117,117,1145,0,0,OK
+Punjab,2022,xlsx,117,117,1304,0,0,OK
+Rajasthan,1951,pdf,140,160,623,0,0,OK
+Rajasthan,1957,pdf,136,176,653,0,0,OK
+Rajasthan,1962,pdf,176,176,890,0,0,OK
+Rajasthan,1967,pdf,184,184,892,0,0,OK
+Rajasthan,1972,pdf,184,184,875,0,0,OK
+Rajasthan,1977,pdf,200,200,1150,0,0,OK
+Rajasthan,1980,pdf,200,200,1406,0,0,OK
+Rajasthan,1985,pdf,200,200,1504,0,0,OK
+Rajasthan,1990,pdf,200,200,3088,0,0,OK
+Rajasthan,1993,pdf,199,199,2437,0,1,CHECK
+Rajasthan,1998,pdf,200,200,1436,0,0,OK
+Rajasthan,2003,pdf,200,200,1541,0,0,OK
+Rajasthan,2008,pdf,200,200,2194,0,0,OK
+Rajasthan,2013,pdf,200,200,2096,0,0,OK
+Rajasthan,2018,pdf,200,200,2294,0,0,OK
+Rajasthan,2023,xlsx,200,200,1875,0,0,OK
+Sikkim,1979,pdf,32,32,244,0,0,OK
+Sikkim,1985,pdf,32,32,195,0,0,OK
+Sikkim,1989,pdf,32,32,118,0,0,OK
+Sikkim,1994,pdf,32,32,186,0,0,OK
+Sikkim,1999,pdf,32,32,105,0,0,OK
+Sikkim,2004,pdf,32,32,91,0,0,OK
+Sikkim,2009,pdf,32,32,167,0,0,OK
+Sikkim,2014,pdf,32,32,121,0,0,OK
+Sikkim,2019,xlsx,32,32,150,0,0,OK
+Sikkim,2024,xlsx,32,32,146,0,0,OK
+Tamil Nadu,1967,pdf,234,234,778,0,0,OK
+Tamil Nadu,1971,pdf,234,234,748,0,0,OK
+Tamil Nadu,1977,pdf,234,234,1390,0,0,OK
+Tamil Nadu,1980,pdf,234,234,1029,0,0,OK
+Tamil Nadu,1984,pdf,234,234,1499,0,0,OK
+Tamil Nadu,1989,pdf,234,234,3046,0,0,OK
+Tamil Nadu,1991,pdf,234,234,2834,0,0,OK
+Tamil Nadu,1996,pdf,234,234,5017,0,0,OK
+Tamil Nadu,2001,pdf,234,234,1860,0,0,OK
+Tamil Nadu,2006,pdf,234,234,2586,0,0,OK
+Tamil Nadu,2011,pdf,234,234,2748,0,0,OK
+Tamil Nadu,2016,xlsx,232,232,3728,0,2,CHECK
+Tamil Nadu,2021,xlsx,234,234,3998,0,0,OK
+Tamil Nadu,2026,xlsx,234,234,4023,0,0,OK
+Telangana,2018,pdf,119,119,1821,0,0,OK
+Telangana,2023,xlsx,119,119,2290,0,0,OK
+Tripura,1967,pdf,30,30,87,0,0,OK
+Tripura,1972,pdf,60,60,234,0,0,OK
+Tripura,1977,pdf,60,60,328,0,0,OK
+Tripura,1983,pdf,60,60,206,0,0,OK
+Tripura,1988,pdf,60,60,220,0,0,OK
+Tripura,1993,pdf,60,60,407,0,0,OK
+Tripura,1998,pdf,60,60,270,0,0,OK
+Tripura,2003,pdf,60,60,254,0,0,OK
+Tripura,2008,pdf,60,60,313,0,0,OK
+Tripura,2013,pdf,60,60,249,0,0,OK
+Tripura,2018,xlsx,61,61,298,0,0,OK
+Tripura,2023,xlsx,60,60,259,0,0,OK
+Uttar Pradesh,1951,pdf,347,402,2604,0,0,OK
+Uttar Pradesh,1957,pdf,341,430,1711,0,0,OK
+Uttar Pradesh,1962,pdf,430,430,2620,0,0,OK
+Uttar Pradesh,1967,pdf,425,425,3014,0,0,OK
+Uttar Pradesh,1969,pdf,425,425,2871,0,0,OK
+Uttar Pradesh,1974,pdf,424,424,4039,0,1,CHECK
+Uttar Pradesh,1977,pdf,425,425,3012,0,0,OK
+Uttar Pradesh,1980,pdf,425,425,4619,0,0,OK
+Uttar Pradesh,1985,pdf,425,425,6019,0,0,OK
+Uttar Pradesh,1989,pdf,425,425,6102,0,0,OK
+Uttar Pradesh,1991,pdf,419,419,7851,0,6,CHECK
+Uttar Pradesh,1993,pdf,422,422,9716,0,3,CHECK
+Uttar Pradesh,1996,pdf,424,424,4429,0,1,CHECK
+Uttar Pradesh,2002,pdf,403,403,5524,0,0,OK
+Uttar Pradesh,2007,pdf,403,403,6086,0,0,OK
+Uttar Pradesh,2012,pdf,403,403,6839,0,0,OK
+Uttar Pradesh,2017,xlsx,403,403,4853,0,0,OK
+Uttar Pradesh,2022,xlsx,403,403,4442,0,0,OK
+Uttarakhand,2002,pdf,70,70,927,0,0,OK
+Uttarakhand,2007,pdf,69,69,785,0,1,CHECK
+Uttarakhand,2012,pdf,70,70,788,0,0,OK
+Uttarakhand,2017,xlsx,70,70,637,0,0,OK
+Uttarakhand,2022,xlsx,70,70,632,0,0,OK
+West Bengal,1951,pdf,187,238,1374,0,0,OK
+West Bengal,1957,pdf,195,252,935,0,0,OK
+West Bengal,1962,pdf,252,252,961,0,0,OK
+West Bengal,1967,pdf,280,280,1058,0,0,OK
+West Bengal,1969,pdf,280,280,1019,0,0,OK
+West Bengal,1971,pdf,279,279,1406,0,1,CHECK
+West Bengal,1972,pdf,280,280,833,0,0,OK
+West Bengal,1977,pdf,294,294,1572,0,0,OK
+West Bengal,1982,pdf,294,294,1204,1,0,CHECK
+West Bengal,1987,pdf,294,294,1497,0,0,OK
+West Bengal,1991,pdf,294,294,1903,0,0,OK
+West Bengal,1996,pdf,294,294,2035,0,0,OK
+West Bengal,2001,pdf,294,294,1676,0,0,OK
+West Bengal,2006,pdf,294,294,1654,0,0,OK
+West Bengal,2011,pdf,294,294,1792,0,0,OK
+West Bengal,2016,xlsx,294,294,1961,0,0,OK
+West Bengal,2021,xlsx,294,294,2132,0,0,OK
+West Bengal,2026,xlsx,294,294,2926,0,0,OK
+Ajmer,1951,pdf,24,30,134,0,0,OK
+Bhopal,1951,pdf,23,30,91,0,0,OK
+Bombay,1951,pdf,268,310,1243,0,0,OK
+Bombay,1957,pdf,339,396,1072,0,0,OK
+Coorg,1951,pdf,18,24,60,0,0,OK
+Hyderabad,1951,pdf,142,175,564,0,0,OK
+Madhya Bharat,1951,pdf,79,99,440,0,0,OK
+Madras,1951,pdf,309,375,1677,0,0,OK
+Tamil Nadu,1957,pdf,167,205,790,0,0,OK
+Tamil Nadu,1962,pdf,206,206,798,0,0,OK
+Mysore,1951,pdf,80,98,394,0,0,OK
+PEPSU,1951,pdf,50,60,374,0,0,OK
+PEPSU,1954,pdf,48,60,279,0,0,OK
+Saurashtra,1951,pdf,55,60,225,0,0,OK
+Travancore-Cochin,1951,pdf,97,108,441,0,0,OK
+Travancore-Cochin,1954,pdf,106,117,265,0,0,OK
+Vindhya Pradesh,1951,pdf,48,60,253,0,0,OK
