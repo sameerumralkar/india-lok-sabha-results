@@ -4,7 +4,7 @@
 
 **Live dashboard:** https://sameerumralkar.github.io/india-lok-sabha-results/
 
-Every Lok Sabha general-election result from 1951 to 2024, plus State Legislative Assembly elections for every state from the first assemblies of 1951–52 to the latest polls: candidate by candidate, constituency by constituency. The data comes from the Election Commission of India's statistical reports. The project also includes party trend views and an HTML dashboard with two menus, **Lok Sabha** and **State elections**.
+Every Lok Sabha general-election result from 1951 to 2024, plus State Legislative Assembly elections for every state from the first assemblies of 1951–52 to the latest polls: candidate by candidate, constituency by constituency. The data comes from the Election Commission of India's statistical reports. The project also includes party trend views and an HTML dashboard with three menus: **Lok Sabha**, **State elections**, and **Party splits & mergers**, a family tree of India's parties from the founding of Congress in 1885 to date.
 
 ## What's here
 
@@ -13,7 +13,8 @@ Every Lok Sabha general-election result from 1951 to 2024, plus State Legislativ
 | `data/lok_sabha.db` | Lok Sabha SQLite database (tables and views below) |
 | `data/state_assemblies.db.gz` | State assembly SQLite database, gzipped (108 MB unpacked; `gunzip -k` it, or let the tests/exporter unpack it) |
 | `data/*.csv` | The same tables and trend views as CSV (`ae_candidates.csv.gz` is gzipped) |
-| `dashboard/index.html` | Self-contained trends dashboard: national lineages, each election's top parties, a state explorer, and the largest party per state per election |
+| `data/party_lineage.json` | Party splits, mergers and renamings, 1885 to date (92 parties, 85 events), with the ECI codes each party used and in which years |
+| `dashboard/index.html` | Self-contained trends dashboard: national lineages, each election's top parties, a state explorer, the largest party per state per election, and the party family tree |
 | `scripts/` | Download, parse, build and export code (Python 3.9+) |
 | `tests/` | Integrity checks run in CI (seat counts, vote reconciliation, known results) |
 | `raw/`, `text/` | *Not committed.* The original ECI downloads and their extracted text are re-created by the rebuild steps below |
@@ -49,6 +50,12 @@ Coverage: 414 elections across 43 states and former states. Of those, 385 reconc
 
 **Not covered:** 7 elections whose ECI PDFs are scanned images with no text layer: Arunachal Pradesh 2014, Bihar 2005, Gujarat 2007 and 2012, Haryana 2005, Himachal Pradesh 2007, and Jharkhand 2005. Reading them needs OCR.
 
+## Party splits and mergers (`data/party_lineage.json`)
+
+The source file holds three lists: `families` (the six lanes of the family tree), `parties` (id, name, family, first and last year, how it ended, ECI codes with year windows, a short note), and `events` (year, type, parties before and after, one-line description). Event types are `split`, `merger`, `rename`, `succession` and `founded`. `scripts/lineage.py` checks the file and writes the tables `lineage_parties`, `lineage_events` and `lineage_eci_codes` into `lok_sabha.db`, plus matching CSVs.
+
+Unlike the results, this section isn't from ECI's statistical reports. It's compiled from the public historical record: party histories and ECI recognition orders such as the 2023 Shiv Sena and 2024 NCP decisions. Dates are years only. It covers the main national and state parties; hundreds of small splinters are left out. When a split left one side with the original name (Congress in 1969 and 1978, Shiv Sena in 2022, NCP in 2023–24), that party's line continues with the side ECI recognised, and the other side appears as the breakaway. Each party's Lok Sabha record is joined by ECI code, limited to the years the code meant that party, because ECI reuses codes: SP was the Socialist Party in 1951 and the Samajwadi Party from 1996. Corrections are welcome. Edit the JSON and run `python3 scripts/lineage.py`.
+
 ## Validation
 
 - **1951–2009:** for every constituency, the candidate vote totals add up exactly to the valid-vote total that ECI prints for that seat.
@@ -83,6 +90,7 @@ python3 -m venv .venv && .venv/bin/pip install pdfplumber pandas openpyxl xlrd r
 .venv/bin/pip install pymupdf                             # fast PDF text for the ~400 assembly reports
 .venv/bin/python -I scripts/download_ae.py raw/ae
 .venv/bin/python -I scripts/build_ae.py
+.venv/bin/python -I scripts/lineage.py                    # party splits and mergers (no download needed)
 .venv/bin/python -I scripts/export_dashboard.py
 ```
 

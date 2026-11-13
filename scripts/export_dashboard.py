@@ -122,7 +122,15 @@ if AE_DB.exists():
 else:
     ae_notes, ae_report = [], []
 
-data = {"years": years, "summary": summary, "national": national, "seats": seats,
+# ---- Party lineage (splits and mergers since 1885)
+import sys
+sys.path.insert(0, str(ROOT / "scripts"))
+import lineage  # noqa: E402
+lin = lineage.load()
+lin["lok_sabha"] = lineage.lok_sabha_record(con, lin)
+lin["seats"] = seats
+
+data = {"lineage": lin, "years": years, "summary": summary, "national": national, "seats": seats,
         "top": top_parties, "states": states, "turnout": turnout,
         "notes": [r["note"] for r in q("SELECT note FROM data_notes")],
         "assembly": assembly, "ae_notes": ae_notes, "ae_report": ae_report}

@@ -1,0 +1,93 @@
+id,name,family,start_year,end_year,end_how,note
+INC,Indian National Congress,congress,1885,,,"Founded in Bombay in December 1885. After the 1969 and 1978 splits the faction led by Indira Gandhi kept the name: ECI listed it as Congress (R) in 1969–71 and Congress (I) from 1978, and simply as INC again from 1984."
+EXT,Extremists (Garam Dal),congress,1907,1916,reunited with Congress at Lucknow,"Tilak, Lajpat Rai and Bipin Chandra Pal's wing, separated from the Moderates at the Surat session."
+SWARAJ,Swaraj Party,congress,1923,1935,folded back into Congress,Formed inside Congress by C. R. Das and Motilal Nehru to contest the legislative councils.
+CSP,Congress Socialist Party,janata,1934,1948,left Congress as the Socialist Party,"A socialist caucus inside Congress led by Jayaprakash Narayan, Acharya Narendra Dev and Ram Manohar Lohia."
+AIFB,All India Forward Bloc,left,1939,,,Founded by Subhas Chandra Bose after he resigned the Congress presidency. Part of the Left Front in West Bengal.
+PWP,Peasants and Workers Party of India,left,1947,,,Broke away from Congress in Maharashtra.
+KMPP,Kisan Mazdoor Praja Party,janata,1951,1952,merged into the Praja Socialist Party,Formed by J. B. Kripalani after he left Congress.
+JHP,Jharkhand Party,regional,1949,1963,merged into Congress,Jaipal Singh's party for a Jharkhand state; merged into Congress in 1963. Splinters later revived the name.
+KEC,Kerala Congress,congress,1964,,,"Broke away from Congress in Kerala; it has itself split many times since, e.g. Kerala Congress (M) in 1979."
+BAC,Bangla Congress,congress,1966,1971,faded; its leaders returned to Congress,Formed by Ajoy Mukherjee in West Bengal; he led the United Front governments of 1967 and 1969.
+BKD,Bharatiya Kranti Dal,janata,1967,1974,merged into the Bharatiya Lok Dal,Charan Singh's party after he left Congress in Uttar Pradesh.
+UTC,Utkal Congress,congress,1969,1974,merged into the Bharatiya Lok Dal,Biju Patnaik's breakaway from Congress in Odisha.
+NCO,Congress (Organisation),congress,1969,1977,merged into the Janata Party,"The old guard (Morarji Desai, K. Kamaraj, S. Nijalingappa) after the party expelled Indira Gandhi in 1969; her side, Congress (R), kept the bulk of the party."
+CFD,Congress for Democracy,congress,1977,1977,merged into the Janata Party,"Jagjivan Ram, H. N. Bahuguna and Nandini Satpathy left Congress weeks before the 1977 election; it fought on the BLD symbol with the Janata parties."
+INCU,Congress (U) / Indian Congress (Socialist),congress,1978,1986,most of it rejoined Congress,"The part of Congress that did not follow Indira Gandhi in 1978, led from 1979 by Devaraj Urs and later by Sharad Pawar, who took most of it back to Congress in 1986."
+JANMORCHA,Jan Morcha,janata,1987,1988,merged into the Janata Dal,V. P. Singh's platform after he was expelled from Congress.
+HVP,Haryana Vikas Party,congress,1991,2004,merged into Congress,Bansi Lal's party after he left Congress.
+TMC,Tamil Maanila Congress (Moopanar),congress,1996,2002,merged into Congress,"G. K. Moopanar's breakaway, formed when Congress allied with the AIADMK."
+TMC2,"Tamil Maanila Congress (Moopanar), revived",congress,2014,,,Revived by G. K. Vasan after he left Congress.
+AITC,All India Trinamool Congress,congress,1998,,,Formed by Mamata Banerjee in West Bengal.
+NCP,Nationalist Congress Party,congress,1999,,,"Formed by Sharad Pawar, P. A. Sangma and Tariq Anwar after they were expelled from Congress. In February 2024 ECI recognised Ajit Pawar's faction as the NCP."
+NCPSP,Nationalist Congress Party – Sharadchandra Pawar,congress,2024,,,Name allotted to Sharad Pawar's faction after ECI awarded the NCP name and clock symbol to Ajit Pawar's faction.
+PDP,Jammu & Kashmir Peoples Democratic Party,regional,1999,,,Formed by Mufti Mohammad Sayeed after he left Congress.
+HJC,Haryana Janhit Congress (BL),congress,2007,2016,merged into Congress,Kuldeep Bishnoi's party after he left Congress.
+YSRCP,YSR Congress Party,congress,2011,,,Formed by Y. S. Jagan Mohan Reddy after he left Congress in Andhra Pradesh.
+AINRC,All India N.R. Congress,congress,2011,,,N. Rangasamy's breakaway from Congress in Puducherry.
+NPP,National People's Party,regional,2013,,,Formed by P. A. Sangma after he left the NCP; based in Meghalaya and the North-East.
+PLC,Punjab Lok Congress,congress,2021,2022,merged into the BJP,Amarinder Singh's party after he resigned as Punjab chief minister and left Congress.
+HMS,Akhil Bharatiya Hindu Mahasabha,hindu,1915,,,
+RRP,Akhil Bharatiya Ram Rajya Parishad,hindu,1948,,,Founded by Swami Karpatri; a minor force after the 1960s.
+BJS,Bharatiya Jana Sangh,hindu,1951,1977,merged into the Janata Party,Founded by Syama Prasad Mookerjee in October 1951.
+BJP,Bharatiya Janata Party,hindu,1980,,,"Founded in April 1980 by former Jana Sangh members who left the Janata Party, with Atal Bihari Vajpayee as president."
+JVM,Jharkhand Vikas Morcha (Prajatantrik),hindu,2006,2020,merged into the BJP,Babulal Marandi's party after he left the BJP.
+KJP,Karnataka Janata Paksha,hindu,2012,2014,merged into the BJP,B. S. Yediyurappa's party after he left the BJP; it contested the 2013 Karnataka election.
+SOCP,Socialist Party,janata,1948,1952,merged into the Praja Socialist Party,
+PSP,Praja Socialist Party,janata,1952,1971,merged into the Socialist Party,Merger of the Socialist Party and the KMPP. A merger with Lohia's socialists in 1964 broke down the next year and the PSP carried on separately.
+LOHIA,Socialist Party (Lohia),janata,1955,1964,merged into the Samyukta Socialist Party,Ram Manohar Lohia's breakaway from the PSP.
+SSP,Samyukta Socialist Party,janata,1964,1971,merged into the Socialist Party,
+SOC71,Socialist Party,janata,1971,1977,merged into the Janata Party,Reunion of the PSP and SSP after the 1971 election; George Fernandes became its chairman.
+GP,Ganatantra Parishad,janata,1950,1962,merged into the Swatantra Party,Party of Odisha's former princely rulers.
+SWA,Swatantra Party,janata,1959,1974,merged into the Bharatiya Lok Dal,"Free-market party founded by C. Rajagopalachari, N. G. Ranga and Minoo Masani; the main opposition in 1967."
+BLD,Bharatiya Lok Dal,janata,1974,1977,merged into the Janata Party,"Charan Singh's merger of the BKD, Swatantra, Utkal Congress, part of the SSP and smaller groups. The Janata alliance fought the 1977 election on the BLD symbol."
+JNP,Janata Party,janata,1977,2013,rump merged into the BJP,"Merger of Congress (O), the Jana Sangh, the BLD, the Socialist Party and the CFD; it won the 1977 election (ECI lists its 295 seats under BLD). After most of it joined the Janata Dal in 1988, a rump under Subramanian Swamy carried on until it merged into the BJP."
+LKD,Janata Party (Secular) / Lok Dal,janata,1979,1988,merged into the Janata Dal,Charan Singh's breakaway that brought down the Morarji Desai government; renamed Lok Dal after the 1980 election.
+JD,Janata Dal,janata,1988,1999,split into JD(S) and JD(U),Formed in October 1988 under V. P. Singh; led the National Front government of 1989 and the United Front governments of 1996–98.
+SJPR,Samajwadi Janata Party (Rashtriya),janata,1990,,,Chandra Shekhar's breakaway from the Janata Dal; he was prime minister in 1990–91.
+SP,Samajwadi Party,janata,1992,,,Formed by Mulayam Singh Yadav in Uttar Pradesh.
+SAP,Samata Party,janata,1994,2003,merged into JD(U) (a rump kept the name),"George Fernandes and Nitish Kumar's breakaway from the Janata Dal, first called Janata Dal (George)."
+INLD,Indian National Lok Dal,janata,1996,,,"Devi Lal's Haryana party, first called Haryana Lok Dal (Rashtriya)."
+RLD,Rashtriya Lok Dal,janata,1996,,,Ajit Singh's party in western Uttar Pradesh.
+RJD,Rashtriya Janata Dal,janata,1997,,,Lalu Prasad Yadav's breakaway from the Janata Dal in July 1997.
+LSH,Lok Shakti,janata,1997,1999,merged into JD(U),Ramakrishna Hegde's party after his expulsion from the Janata Dal.
+BJD,Biju Janata Dal,janata,1997,,,"Formed by Naveen Patnaik in Odisha, named after his father Biju Patnaik."
+JDS,Janata Dal (Secular),janata,1999,,,H. D. Deve Gowda's faction when the Janata Dal split over support for the NDA.
+JDU,Janata Dal (United),janata,1999,,,Sharad Yadav's faction of the Janata Dal with Lok Shakti; the Samata Party merged in 2003.
+LJP,Lok Janshakti Party,janata,2000,2021,split into LJP (Ram Vilas) and RLJP,Ram Vilas Paswan's breakaway from JD(U).
+RLSP,Rashtriya Lok Samta Party,janata,2013,2021,merged into JD(U),Upendra Kushwaha's party after he left JD(U).
+HAM,Hindustani Awam Morcha (Secular),janata,2015,,,Jitan Ram Manjhi's party after he left JD(U).
+JJP,Jannayak Janta Party,janata,2018,,,Dushyant Chautala's breakaway from the INLD.
+LJPRV,Lok Janshakti Party (Ram Vilas),janata,2021,,,Chirag Paswan's faction; ECI froze the LJP name and symbol in 2021 and gave each faction a new name.
+RLJP,Rashtriya Lok Janshakti Party,janata,2021,,,Pashupati Kumar Paras's faction of the LJP.
+CPI,Communist Party of India,left,1925,,,Dates its founding to the Kanpur conference of December 1925; the CPI(M) dates it to an emigré group formed in Tashkent in 1920.
+RSP,Revolutionary Socialist Party,left,1940,,,Grew out of the Anushilan Samiti revolutionaries of Bengal.
+SUCI,Socialist Unity Centre of India (Communist),left,1948,,,Founded by Shibdas Ghosh.
+CPM,Communist Party of India (Marxist),left,1964,,,"Split from the CPI in 1964, broadly along the Sino-Soviet divide."
+CPIML,CPI (Marxist–Leninist),left,1969,1974,fragmented; the main line reorganised as CPI(ML) Liberation,"Formed by Charu Majumdar and others from the Naxalbari uprising, breaking with the CPI(M)."
+CPIMLL,CPI (Marxist–Leninist) Liberation,left,1974,,,"Contested through its open front, the Indian People's Front, until it entered elections under its own name."
+JUSTICE,Justice Party (South Indian Liberal Federation),dravidian,1916,1944,became the Dravidar Kazhagam,Non-Brahmin party that governed Madras Presidency for most of 1920–37.
+DK,Dravidar Kazhagam,dravidian,1944,,,Periyar E. V. Ramasamy's movement; it does not contest elections.
+DMK,Dravida Munnetra Kazhagam,dravidian,1949,,,"Formed by C. N. Annadurai, who broke with Periyar; it first contested in 1957."
+ADMK,All India Anna Dravida Munnetra Kazhagam,dravidian,1972,,,Formed by M. G. Ramachandran after his expulsion from the DMK.
+MDMK,Marumalarchi Dravida Munnetra Kazhagam,dravidian,1994,,,Vaiko's breakaway from the DMK.
+AIML,All-India Muslim League,regional,1906,1948,split by Partition; reconstituted in India as the IUML,Founded in Dhaka; led the movement for Pakistan.
+IUML,Indian Union Muslim League,regional,1948,,,Reconstituted in Madras in March 1948; strongest in Kerala.
+AIMIM,All India Majlis-e-Ittehadul Muslimeen,regional,1927,,,Founded in Hyderabad State in 1927; revived in its present form in 1958.
+SAD,Shiromani Akali Dal,regional,1920,,,The Sikh party of Punjab; it has split into rival Akali Dals many times.
+NC,Jammu & Kashmir National Conference,regional,1932,,,Founded by Sheikh Abdullah as the Muslim Conference; renamed National Conference in 1939.
+SCF,Scheduled Castes Federation,regional,1942,1957,succeeded by the Republican Party of India,Founded by B. R. Ambedkar.
+RPI,Republican Party of India,regional,1957,,,"Formed by Ambedkar's followers after his death; it has split into many factions, e.g. RPI (Athawale)."
+MNF,Mizo National Front,regional,1961,,,"Laldenga's movement; an armed insurgency until the 1986 Mizo Accord, then a party."
+SHS,Shiv Sena,regional,1966,,,Founded by Bal Thackeray in Bombay. In February 2023 ECI awarded the name and bow-and-arrow symbol to Eknath Shinde's faction.
+MNS,Maharashtra Navnirman Sena,regional,2006,,,Raj Thackeray's breakaway from the Shiv Sena.
+SHSUBT,Shiv Sena (Uddhav Balasaheb Thackeray),regional,2022,,,Uddhav Thackeray's faction after Eknath Shinde's revolt in June 2022.
+JMM,Jharkhand Mukti Morcha,regional,1972,,,"Founded by Shibu Soren, Binod Bihari Mahato and A. K. Roy."
+TDP,Telugu Desam Party,regional,1982,,,Founded by N. T. Rama Rao; it won Andhra Pradesh within nine months.
+TRS,Telangana Rashtra Samithi / Bharat Rashtra Samithi,regional,2001,,,Formed by K. Chandrashekar Rao after he left the TDP; renamed Bharat Rashtra Samithi in 2022.
+BSP,Bahujan Samaj Party,regional,1984,,,Founded by Kanshi Ram.
+SSPS,Sikkim Sangram Parishad,regional,1984,,,Nar Bahadur Bhandari's party.
+AGP,Asom Gana Parishad,regional,1985,,,Formed by leaders of the Assam movement after the 1985 Assam Accord.
+SDF,Sikkim Democratic Front,regional,1993,,,Pawan Chamling's breakaway from the Sikkim Sangram Parishad; it governed Sikkim from 1994 to 2019.
+AAP,Aam Aadmi Party,regional,2012,,,Formed by Arvind Kejriwal out of the India Against Corruption movement.
+SKM,Sikkim Krantikari Morcha,regional,2013,,,Prem Singh Tamang's breakaway from the SDF; in power in Sikkim since 2019.

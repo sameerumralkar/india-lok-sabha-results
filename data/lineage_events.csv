@@ -1,0 +1,86 @@
+year,type,from_ids,to_ids,text
+1907,split,INC,EXT,Surat split: the Extremists and Moderates part ways at the Congress session.
+1916,merger,EXT,INC,Lucknow session: the Extremists return to Congress.
+1923,split,INC,SWARAJ,C. R. Das and Motilal Nehru form the Swaraj Party to enter the councils.
+1934,split,INC,CSP,Socialists form the Congress Socialist Party inside Congress.
+1935,merger,SWARAJ,INC,The Swarajists fold back into Congress.
+1939,split,INC,AIFB,Subhas Chandra Bose leaves the Congress presidency and forms the Forward Bloc.
+1944,rename,JUSTICE,DK,Under Periyar the Justice Party becomes the Dravidar Kazhagam.
+1947,split,INC,PWP,Peasants and Workers Party breaks away in Maharashtra.
+1948,split,CSP,SOCP,The socialists leave Congress and form the Socialist Party.
+1948,succession,AIML,IUML,After Partition the League's Indian members reconstitute it as the Indian Union Muslim League.
+1949,split,DK,DMK,C. N. Annadurai breaks with Periyar and founds the DMK.
+1951,split,INC,KMPP,J. B. Kripalani leaves Congress and forms the Kisan Mazdoor Praja Party.
+1952,merger,"SOCP,KMPP",PSP,The Socialist Party and KMPP merge as the Praja Socialist Party.
+1955,split,PSP,LOHIA,Ram Manohar Lohia leaves the PSP.
+1957,succession,SCF,RPI,After Ambedkar's death the Scheduled Castes Federation becomes the Republican Party of India.
+1962,merger,GP,SWA,Odisha's Ganatantra Parishad merges into the Swatantra Party.
+1963,merger,JHP,INC,Jaipal Singh merges the Jharkhand Party into Congress.
+1964,split,CPI,CPM,The CPI splits; the breakaway becomes the CPI (Marxist).
+1964,merger,"LOHIA,PSP",SSP,Lohia's socialists and part of the PSP form the Samyukta Socialist Party; the rest of the PSP carries on.
+1964,split,INC,KEC,Kerala Congress breaks away from Congress.
+1966,split,INC,BAC,Ajoy Mukherjee forms the Bangla Congress in West Bengal.
+1966,founded,,SHS,Bal Thackeray founds the Shiv Sena.
+1967,split,INC,BKD,Charan Singh quits Congress in Uttar Pradesh and forms the Bharatiya Kranti Dal.
+1969,split,INC,NCO,Great Congress split: Indira Gandhi's Congress (R) against the old guard's Congress (O).
+1969,split,INC,UTC,Biju Patnaik forms the Utkal Congress in Odisha.
+1969,split,CPM,CPIML,Naxalite revolutionaries leave the CPI(M) and found the CPI (Marxist–Leninist).
+1971,merger,"PSP,SSP",SOC71,The PSP and SSP reunite as the Socialist Party.
+1972,split,DMK,ADMK,M. G. Ramachandran is expelled from the DMK and founds the AIADMK.
+1974,merger,"BKD,SWA,UTC",BLD,"Charan Singh merges the BKD, Swatantra, Utkal Congress and smaller parties into the Bharatiya Lok Dal."
+1974,rename,CPIML,CPIMLL,"After the CPI(ML) fragments, its main line is reorganised; it later becomes CPI(ML) Liberation."
+1977,split,INC,CFD,Jagjivan Ram leaves Congress and forms the Congress for Democracy.
+1977,merger,"NCO,BJS,BLD,SOC71,CFD",JNP,"The opposition merges into the Janata Party, which wins the post-Emergency election."
+1978,split,INC,INCU,"Congress splits again: Indira Gandhi's Congress (I) against the rest, later Congress (U)."
+1979,split,JNP,LKD,Charan Singh's Janata Party (Secular) breaks away and brings down the Desai government.
+1980,split,JNP,BJP,Former Jana Sangh members leave the Janata Party and found the BJP.
+1986,merger,INCU,INC,Sharad Pawar takes most of the Indian Congress (Socialist) back into Congress.
+1987,split,INC,JANMORCHA,"V. P. Singh, expelled from Congress, launches the Jan Morcha."
+1988,merger,"JNP,LKD,JANMORCHA",JD,"The Janata Party, Lok Dal and Jan Morcha form the Janata Dal; a rump Janata Party continues."
+1988,split,ADMK,ADMK,After MGR's death the AIADMK splits between Janaki Ramachandran and J. Jayalalithaa; it reunites in 1989.
+1990,split,JD,SJPR,Chandra Shekhar breaks away and becomes prime minister with Congress support.
+1991,split,INC,HVP,Bansi Lal's Haryana Vikas Party.
+1992,split,SJPR,SP,Mulayam Singh Yadav leaves and founds the Samajwadi Party.
+1993,split,SSPS,SDF,Pawan Chamling forms the Sikkim Democratic Front.
+1994,split,JD,SAP,George Fernandes and Nitish Kumar break away; the group becomes the Samata Party.
+1994,split,DMK,MDMK,Vaiko is expelled from the DMK and forms the MDMK.
+1996,split,INC,TMC,G. K. Moopanar's Tamil Maanila Congress opposes Congress's AIADMK alliance.
+1996,split,SJPR,INLD,"Devi Lal's Haryana Lok Dal (Rashtriya), later the INLD."
+1996,split,JD,RLD,"Ajit Singh's party, later the Rashtriya Lok Dal."
+1997,split,JD,RJD,Lalu Prasad Yadav leaves the Janata Dal and forms the RJD.
+1997,split,JD,LSH,"Expelled from the Janata Dal, Ramakrishna Hegde forms Lok Shakti."
+1997,split,JD,BJD,Naveen Patnaik forms the Biju Janata Dal in Odisha.
+1998,split,INC,AITC,Mamata Banerjee forms the Trinamool Congress.
+1999,split,INC,NCP,"Sharad Pawar, P. A. Sangma and Tariq Anwar, expelled over Sonia Gandhi's foreign origin, form the NCP."
+1999,split,INC,PDP,Mufti Mohammad Sayeed forms the PDP in Jammu & Kashmir.
+1999,split,JD,"JDS,JDU",The Janata Dal splits: Deve Gowda's JD(S) and Sharad Yadav's JD(U).
+1999,merger,LSH,JDU,Lok Shakti joins JD(U).
+2000,split,JDU,LJP,Ram Vilas Paswan leaves JD(U) and forms the Lok Janshakti Party.
+2001,split,TDP,TRS,K. Chandrashekar Rao leaves the TDP and founds the Telangana Rashtra Samithi.
+2002,merger,TMC,INC,The Tamil Maanila Congress merges back into Congress.
+2003,merger,SAP,JDU,The Samata Party merges into JD(U).
+2004,merger,HVP,INC,Bansi Lal merges the Haryana Vikas Party into Congress.
+2006,split,SHS,MNS,Raj Thackeray leaves the Shiv Sena and founds the MNS.
+2006,split,BJP,JVM,Babulal Marandi leaves the BJP and forms the JVM(P).
+2007,split,INC,HJC,Kuldeep Bishnoi forms the Haryana Janhit Congress.
+2011,split,INC,YSRCP,Y. S. Jagan Mohan Reddy forms the YSR Congress Party.
+2011,split,INC,AINRC,N. Rangasamy forms the All India N.R. Congress in Puducherry.
+2012,split,BJP,KJP,B. S. Yediyurappa leaves the BJP and forms the Karnataka Janata Paksha.
+2012,founded,,AAP,Arvind Kejriwal launches the Aam Aadmi Party.
+2013,split,NCP,NPP,P. A. Sangma leaves the NCP and forms the National People's Party.
+2013,split,SDF,SKM,Prem Singh Tamang forms the Sikkim Krantikari Morcha.
+2013,split,JDU,RLSP,Upendra Kushwaha leaves JD(U) and forms the RLSP.
+2013,merger,JNP,BJP,Subramanian Swamy merges the rump Janata Party into the BJP.
+2014,merger,KJP,BJP,Yediyurappa merges the KJP back into the BJP.
+2014,split,INC,TMC2,G. K. Vasan leaves Congress and revives the Tamil Maanila Congress.
+2015,split,JDU,HAM,Jitan Ram Manjhi leaves JD(U) and forms HAM (Secular).
+2016,merger,HJC,INC,Kuldeep Bishnoi merges the HJC into Congress.
+2018,split,INLD,JJP,Dushyant Chautala breaks away from the INLD and forms the Jannayak Janta Party.
+2020,merger,JVM,BJP,Babulal Marandi merges the JVM(P) into the BJP.
+2021,split,LJP,"LJPRV,RLJP",The LJP splits between Chirag Paswan and Pashupati Kumar Paras; ECI gives each faction a new name.
+2021,merger,RLSP,JDU,Upendra Kushwaha merges the RLSP into JD(U).
+2021,split,INC,PLC,Amarinder Singh leaves Congress and forms the Punjab Lok Congress.
+2022,merger,PLC,BJP,The Punjab Lok Congress merges into the BJP.
+2022,split,SHS,SHSUBT,Eknath Shinde's revolt splits the Shiv Sena; ECI later recognises his faction as the Shiv Sena and Uddhav Thackeray's as Shiv Sena (UBT).
+2022,rename,TRS,TRS,Telangana Rashtra Samithi renamed Bharat Rashtra Samithi.
+2024,split,NCP,NCPSP,After Ajit Pawar's 2023 revolt ECI recognises his faction as the NCP; Sharad Pawar's becomes NCP – Sharadchandra Pawar.

@@ -316,6 +316,8 @@ def write_db(rows, party_names, notes):
     con.executemany("INSERT INTO data_notes (note) VALUES (?)", [(n,) for n in notes])
     con.executescript(Path(__file__).with_name("views.sql").read_text())
     con.commit()
+    import lineage  # party splits and mergers live alongside the results
+    lineage.write(con)
 
     # CSV exports
     for name in ["candidates", "constituencies", "parties", "national_party_trends",

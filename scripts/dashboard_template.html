@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>India election results: Lok Sabha and state assemblies</title>
+<title>India election results: Lok Sabha, state assemblies and party lineage</title>
 <style>
 .viz-root {
   color-scheme: light;
@@ -86,6 +86,25 @@ summary { cursor: pointer; color: var(--text-secondary); font-size: 12.5px; }
 .strip td { vertical-align: top; }
 .theme { position: absolute; top: 28px; right: clamp(14px, 3vw, 40px); }
 a { color: var(--s1); }
+.xscroll { overflow-x: auto; }
+.xscroll > div { min-width: 980px; }
+.tree .bar { cursor: pointer; }
+.tree .dim { opacity: .18; }
+.tree .link { fill: none; stroke: var(--text-muted); stroke-width: 1; opacity: .55; }
+.tree .link.merger { stroke-dasharray: 3 2; }
+.tree .link.on { stroke: var(--text-primary); opacity: 1; stroke-width: 1.6; }
+.tree .lane { fill: var(--text-secondary); font-size: 12px; font-weight: 650; }
+.tree .plbl { fill: var(--text-primary); font-size: 10.5px; pointer-events: none; }
+.tree .era { fill: var(--text-muted); font-size: 10.5px; }
+.pill { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 9px; border: 1px solid var(--border); color: var(--text-secondary); }
+.plink { cursor: pointer; color: var(--s1); text-decoration: underline; text-decoration-color: var(--border); }
+.fam-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.fam-btns button { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; padding: 4px 9px; }
+.fam-btns button[aria-pressed="true"] { background: var(--surface-1); color: var(--text-primary); border-color: var(--text-muted); }
+.fam-btns button[aria-pressed="false"] { opacity: .45; }
+#ln-types button[aria-pressed="false"] { opacity: 1; }
+#ln-types button[aria-pressed="true"] { background: var(--text-primary); color: var(--surface-1); }
+.fam-btns i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 </style>
 </head>
 <body>
@@ -95,6 +114,7 @@ a { color: var(--s1); }
   <nav class="menu" aria-label="Election type">
     <a href="#lok-sabha" data-view="lok-sabha">Lok Sabha</a>
     <a href="#state-elections" data-view="state-elections">State elections</a>
+    <a href="#party-lineage" data-view="party-lineage">Party splits &amp; mergers</a>
   </nav>
 <div class="view" id="view-lok-sabha">
   <h1>Lok Sabha elections, 1951–2024</h1>
@@ -173,6 +193,36 @@ a { color: var(--s1); }
   <section>
     <h2>About the assembly data</h2>
     <div class="card small" id="ae-notes"></div>
+  </section>
+</div>
+
+<div class="view" id="view-party-lineage" hidden>
+  <h1>Party splits and mergers, 1885 to date</h1>
+  <p class="sub">How India's parties grew out of one another, from the founding of the Indian National Congress in 1885 to the
+    Shiv Sena and NCP splits of 2022–24. Each bar is a party's life; vertical lines join a party to the ones it split into or merged with.
+    Click a party to trace it and see its Lok Sabha record.</p>
+  <div class="kpis" id="ln-kpis"></div>
+  <section>
+    <div class="controls"><span class="small">Show</span><div class="fam-btns" id="ln-fams"></div>
+      <label for="ln-sel" style="margin-left:auto">Trace a party</label><select id="ln-sel"></select></div>
+    <div class="card"><h3>Family tree</h3>
+      <p class="cap">Solid line: split or breakaway. Dashed line: merger. Bars run to today for parties still active.</p>
+      <div class="xscroll"><div id="ln-tree"></div></div></div>
+  </section>
+  <section id="ln-detail-sec">
+    <div class="grid2">
+      <div class="card" id="ln-detail"></div>
+      <div class="card"><h3 id="ln-ls-h">Lok Sabha seats</h3><p class="cap" id="ln-ls-cap"></p><div id="ln-ls"></div></div>
+    </div>
+  </section>
+  <section>
+    <h2>Every split and merger</h2>
+    <div class="controls fam-btns" id="ln-types"></div>
+    <div class="card"><div class="scroll" id="ln-events"></div></div>
+  </section>
+  <section>
+    <h2>About this section</h2>
+    <div class="card small" id="ln-notes"></div>
   </section>
 </div>
 </div>
@@ -266,7 +316,7 @@ function stackChart(target, years, totals, series, majority){
   const step = years.length > 12 ? 2 : 1;
   years.forEach((yr, i) => {
     const cx = m.l + band * i + band / 2;
-    if ((i % step === 0 && i !== years.length - 2) || i === years.length - 1) el("text", {x: cx, y: H - 8, "text-anchor": "middle"}, svg).textContent = yr;
+    if ((i % step === 0 && (step === 1 || i !== years.length - 2)) || i === years.length - 1) el("text", {x: cx, y: H - 8, "text-anchor": "middle"}, svg).textContent = yr;
     let acc = 0; const segs = series.filter(s => s.won[i] > 0);
     segs.forEach((s, j) => {
       const y0 = y(acc), y1 = y(acc + s.won[i]); acc += s.won[i];
@@ -426,12 +476,167 @@ function renderAE(){
     ${D.ae_notes.length ? `<details><summary>${D.ae_notes.length} data notes</summary><ul>${D.ae_notes.map(n => `<li>${n}</li>`).join("")}</ul></details>` : ""}`;
 }
 
+
+// ---- party lineage
+const FAM_COLORS = {congress: "--s1", hindu: "--s2", janata: "--s3", left: "--s4", dravidian: "--s5", regional: "--s7"};
+const TYPE_NAMES = {split: "Split", merger: "Merger", rename: "Rename", succession: "Succession", founded: "Founded"};
+const LN = {fams: null, sel: null, type: "all"};
+function renderLineage(){
+  const L = D.lineage, P = Object.fromEntries(L.parties.map(p => [p.id, p])), NOW = 2026;
+  if (!LN.fams) LN.fams = new Set(L.families.map(f => f.key));
+  const evs = L.events.slice().sort((a, b) => a.year - b.year);
+  const parents = {}, children = {};
+  for (const e of evs) for (const f of e.from) for (const t of e.to) if (f !== t) {
+    (children[f] = children[f] || []).push({id: t, e}); (parents[t] = parents[t] || []).push({id: f, e}); }
+  const cnt = t => evs.filter(e => e.type === t).length;
+  const incKids = (children.INC || []).filter(c => c.e.type === "split").length;
+  $("#ln-kpis").innerHTML = [
+    [L.parties.length, "parties traced, " + Math.min(...L.parties.map(p => p.start)) + "–today"],
+    [cnt("split"), "splits and breakaways"],
+    [cnt("merger"), "mergers"],
+    [incKids, "breakaways from Congress"],
+    [L.parties.filter(p => !p.end).length, "of them still active"],
+  ].map(([v, l]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+
+  $("#ln-fams").innerHTML = L.families.map(f => `<button data-f="${f.key}" aria-pressed="${LN.fams.has(f.key)}"><i style="background:var(${FAM_COLORS[f.key]})"></i>${f.name}</button>`).join("");
+  $("#ln-fams").querySelectorAll("button").forEach(b => b.onclick = () => {
+    const k = b.dataset.f; if (LN.fams.has(k) && LN.fams.size > 1) LN.fams.delete(k); else LN.fams.add(k); renderLineage(); });
+  const sel = $("#ln-sel");
+  sel.innerHTML = `<option value="">— choose —</option>` + L.families.map(f => `<optgroup label="${f.name}">${
+    L.parties.filter(p => p.family === f.key).sort((a, b) => a.start - b.start).map(p => `<option value="${p.id}">${p.label} (${p.start})</option>`).join("")}</optgroup>`).join("");
+  sel.value = LN.sel || ""; sel.onchange = () => pick(sel.value || null);
+  function pick(id){ LN.sel = id; if (id) LN.fams.add(P[id].family); renderLineage();
+    if (id) $("#ln-detail-sec").scrollIntoView({behavior: "smooth", block: "nearest"}); }
+
+  // highlight set: full ancestry, the party, its direct offspring
+  const on = new Set();
+  if (LN.sel){ const up = [LN.sel]; while (up.length){ const i = up.pop(); if (on.has(i)) continue; on.add(i); (parents[i] || []).forEach(p => up.push(p.id)); }
+    (children[LN.sel] || []).forEach(c => on.add(c.id)); }
+
+  // ---- layout: lanes of packed rows
+  const W = 1180, m = {l: 8, r: 14, t: 26}, x0 = 1885, x1 = NOW;
+  const x = yr => m.l + (yr - x0) * (W - m.l - m.r) / (x1 - x0), ppy = (W - m.l - m.r) / (x1 - x0);
+  const RH = 21, rowY = {}, labelX = {}; let y = m.t;
+  const lanes = [];
+  for (const f of L.families) {
+    if (!LN.fams.has(f.key)) continue;
+    const ps = L.parties.filter(p => p.family === f.key).sort((a, b) => a.start - b.start || (b.end || NOW) - (a.end || NOW));
+    const rows = [];
+    for (const p of ps) {
+      // labels sit above the bar; near the right edge they shift left so they are not clipped
+      const lw = p.label.length * 5.9 + 10, lx = Math.min(x(p.start), W - m.r - lw);
+      labelX[p.id] = lx; const from = x0 + (lx - m.l) / ppy;
+      const reach = Math.max(p.end || NOW, from + lw / ppy);
+      let r = rows.findIndex(end => end <= from - 0.5); if (r < 0) { r = rows.length; rows.push(0); }
+      rows[r] = reach; rowY[p.id] = y + 32 + r * RH;
+    }
+    lanes.push({f, y}); y += 32 + rows.length * RH + 6;
+  }
+  const H = y + 10, box = $("#ln-tree"); box.innerHTML = "";
+  const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, class: "tree", role: "img", "aria-label": "Family tree of Indian political parties since 1885"}, box);
+  for (let t = 1890; t <= 2020; t += 10) {
+    el("line", {x1: x(t), x2: x(t), y1: m.t - 6, y2: H - 6, stroke: css("--grid")}, svg);
+    el("text", {x: x(t), y: 12, "text-anchor": "middle"}, svg).textContent = t; }
+  [[1947, "Independence"], [1977, "Janata"]].forEach(([t, lbl]) => {
+    el("line", {x1: x(t), x2: x(t), y1: m.t - 6, y2: H - 6, stroke: css("--text-muted"), "stroke-dasharray": "2 3"}, svg);
+    el("text", {x: x(t) + 4, y: m.t - 2, class: "era"}, svg).textContent = lbl; });
+  lanes.forEach(({f, y}) => el("text", {x: m.l, y: y + 10, class: "lane"}, svg).textContent = f.name);
+  // links behind bars
+  const gL = el("g", {}, svg), gB = el("g", {}, svg);
+  for (const e of evs) for (const fId of e.from) for (const tId of e.to) {
+    if (fId === tId || rowY[fId] == null || rowY[tId] == null) continue;
+    const xx = x(e.year) + (e.type === "merger" ? -0.5 : 0.5), ya = rowY[fId] + 4, yb = rowY[tId] + 4;
+    const hot = LN.sel && on.has(fId) && on.has(tId);
+    el("path", {d: `M${xx},${ya}V${yb}`, class: `link ${e.type === "merger" ? "merger" : ""} ${hot ? "on" : ""}`}, gL);
+    el("circle", {cx: xx, cy: e.type === "merger" ? ya : yb, r: 2.2, fill: css(hot ? "--text-primary" : "--text-muted")}, gL);
+  }
+  for (const p of L.parties) {
+    if (rowY[p.id] == null) continue;
+    const a = x(p.start), b = Math.max(x(p.end || NOW), a + 3), yy = rowY[p.id], dim = LN.sel && !on.has(p.id);
+    const g = el("g", {class: "bar" + (dim ? " dim" : "")}, gB);
+    el("rect", {x: a, y: yy, width: b - a, height: 8, rx: 2, fill: css(FAM_COLORS[p.family]),
+      stroke: p.id === LN.sel ? css("--text-primary") : "none", "stroke-width": 1.5}, g);
+    if (!p.end) el("path", {d: `M${b},${yy - 1}l5,5l-5,5z`, fill: css(FAM_COLORS[p.family])}, g);
+    el("text", {x: labelX[p.id], y: yy - 3, class: "plbl", "font-weight": p.id === LN.sel ? 700 : 400}, g).textContent = p.label;
+    const hx = Math.min(a, labelX[p.id]) - 2;
+    const hit = el("rect", {x: hx, y: yy - 13, width: Math.max(b, labelX[p.id] + p.label.length * 5.9) - hx + 4, height: 22, fill: "transparent"}, g);
+    const rec = (D.lineage.lok_sabha || {})[p.id], best = rec ? Object.entries(rec).sort((u, v) => v[1][0] - u[1][0])[0] : null;
+    hit.addEventListener("pointermove", ev => showTip(`<b>${p.name}</b><div>${p.start}–${p.end || "today"}${p.end_how ? " · " + p.end_how : ""}</div>` +
+      (best && best[1][0] > 0 ? `<div class="small">Best Lok Sabha result: ${best[1][0]} seats in ${best[0]}</div>` : "") + `<div class="small">Click to trace</div>`, ev));
+    hit.addEventListener("pointerleave", hideTip);
+    hit.addEventListener("click", () => { hideTip(); sel.value = p.id; pick(p.id); });
+  }
+
+  // ---- detail panel
+  const pl = id => `<span class="plink" data-id="${id}">${P[id].label}</span>`;
+  const S = LN.sel && P[LN.sel];
+  if (!S) {
+    $("#ln-detail").innerHTML = `<h3>Trace a party</h3><p class="cap">Click a bar in the tree, or choose a party above, to see where it came from, what came out of it and how it did in Lok Sabha elections.</p>`;
+    $("#ln-ls-h").textContent = "Lok Sabha seats"; $("#ln-ls-cap").textContent = ""; $("#ln-ls").innerHTML = "";
+  } else {
+    // line of descent follows single-parent links (splits, renames, successions) and stops at a merger
+    const chain = []; let c = S.id; const seen = new Set();
+    while (c && !seen.has(c)) { seen.add(c); chain.unshift(c);
+      const ps = (parents[c] || []).filter(q => q.e.type !== "merger" && q.e.year === P[c].start); c = ps.length ? ps[0].id : null; }
+    const born = (parents[S.id] || []).filter(r => r.e.year === S.start);
+    const absorbed = (parents[S.id] || []).filter(r => r.e.year !== S.start);
+    const kids = (children[S.id] || []).filter(r => r.e.type === "split");
+    const into = (children[S.id] || []).filter(r => r.e.type !== "split");
+    const block = (t, rs) => { if (!rs.length) return ""; const g = new Map();  // one line per event
+      rs.forEach(r => g.set(r.e, (g.get(r.e) || []).concat(r.id)));
+      return `<p class="small"><b>${t}</b></p><ul class="small">${[...g].map(([e, ids]) => `<li>${e.year}: ${ids.map(pl).join(", ")} — ${e.text}</li>`).join("")}</ul>`; };
+    $("#ln-detail").innerHTML = `<h3>${S.name}</h3>
+      <p class="cap"><span class="pill">${L.families.find(f => f.key === S.family).name}</span> ${S.start}–${S.end || "today"}${S.end_how ? " · " + S.end_how : ""}</p>
+      ${S.note ? `<p>${S.note}</p>` : ""}
+      ${chain.length > 1 ? `<p class="small"><b>Line of descent:</b> ${chain.map(pl).join(" → ")}</p>` : ""}
+      ${block(born.length && born.every(r => r.e.type === "merger") ? "Formed by merger of" : "Came from", born)}
+      ${block("Absorbed", absorbed)}
+      ${block("Breakaways from it", kids)}
+      ${block("Merged into or succeeded by", into)}
+      <p><button id="ln-clear">Clear selection</button></p>`;
+    $("#ln-clear").onclick = () => { sel.value = ""; LN.sel = null; renderLineage(); };
+    const rec = (L.lok_sabha || {})[S.id];
+    $("#ln-ls-h").textContent = `${S.label}: Lok Sabha seats`;
+    if (!rec) { $("#ln-ls-cap").textContent = S.start > 2024 ? "No Lok Sabha election since it was formed." :
+        "Not in the Lok Sabha results under its own name (it did not contest, contested before 1951, or fought on another party's symbol)."; $("#ln-ls").innerHTML = ""; }
+    else {
+      const ys = Object.keys(rec).map(Number), won = ys.map(y => rec[y][0]);
+      $("#ln-ls-cap").textContent = "ECI codes: " + (S.eci || []).map(([c, a, b]) => `${c} (${a === b ? a : a + "–" + b})`).join(", ") +
+        ". Hover a bar for vote share.";
+      // majority ticks only for parties that came near one; the y-scale must then reach them
+      const maj = ys.map(y => Math.floor(L.seats[y] / 2) + 1), near = won.some((w, i) => w >= maj[i] * 0.6);
+      const top = Math.max(1, ...won, ...(near ? maj : []));
+      stackChart("#ln-ls", ys, ys.map(() => top), [{name: S.label, color: FAM_COLORS[S.family], won}], near ? maj : null);
+      // vote share in the tooltip
+      $("#ln-ls").querySelectorAll("rect[fill=transparent]").forEach((r, i) => r.addEventListener("pointermove", ev =>
+        showTip(`<b>${ys[i]} · ${won[i]} of ${L.seats[ys[i]]} seats</b><div class="row"><span>Vote share</span><span>${rec[ys[i]][1].toFixed(1)}%</span></div>`, ev)));
+    }
+  }
+  document.querySelectorAll("#view-party-lineage .plink").forEach(a => a.onclick = () => { sel.value = a.dataset.id; pick(a.dataset.id); });
+
+  // ---- event log
+  $("#ln-types").innerHTML = [["all", "All"], ["split", "Splits"], ["merger", "Mergers"], ["rename", "Renames & successions"]]
+    .map(([k, n]) => `<button data-t="${k}" aria-pressed="${LN.type === k}">${n}</button>`).join("");
+  $("#ln-types").querySelectorAll("button").forEach(b => b.onclick = () => { LN.type = b.dataset.t; renderLineage(); });
+  const shown = evs.filter(e => LN.type === "all" || e.type === LN.type || (LN.type === "rename" && e.type === "succession"))
+    .filter(e => e.from.concat(e.to).some(i => LN.fams.has(P[i].family)));
+  $("#ln-events").innerHTML = `<table><thead><tr><th>Year</th><th class="l">Type</th><th class="l">From</th><th class="l">To</th><th class="l">What happened</th></tr></thead><tbody>${
+    shown.map(e => `<tr><td>${e.year}</td><td class="l">${TYPE_NAMES[e.type]}</td><td class="l">${e.from.map(pl).join(", ") || "–"}</td><td class="l">${e.to.map(pl).join(", ")}</td><td class="l" style="white-space:normal;min-width:320px">${e.text}</td></tr>`).join("")}</tbody></table>`;
+  document.querySelectorAll("#ln-events .plink").forEach(a => a.onclick = () => { sel.value = a.dataset.id; pick(a.dataset.id); scrollTo({top: 0, behavior: "smooth"}); });
+  $("#ln-notes").innerHTML = `<p><b>Source.</b> Compiled from the public historical record — party histories and ECI recognition orders (for example the 2023 Shiv Sena and 2024 NCP decisions) —
+    not from ECI's statistical reports. Dates are years. Lok Sabha records are joined from this site's ECI database by party code, limited to the years each code meant that party, because ECI reuses codes
+    (SP was the Socialist Party in 1951 and the Samajwadi Party from 1996).</p>
+    <p><b>What is included.</b> The main national and state parties and the splits and mergers that shaped them; hundreds of small splinters, factions and unrecognised parties are left out.
+    Where a party split and the original name was kept by one side (Congress in 1969 and 1978, Shiv Sena in 2022, NCP in 2023–24), the bar carries on with the side ECI recognised, and the other side appears as the breakaway.
+    The 1977 Janata Party is shown with the 295 seats ECI recorded under the BLD symbol it contested on.</p>`;
+}
+
 function route(){
-  const v = location.hash === "#state-elections" ? "state-elections" : "lok-sabha";
+  const v = {"#state-elections": "state-elections", "#party-lineage": "party-lineage"}[location.hash] || "lok-sabha";
   document.querySelectorAll(".view").forEach(e => e.hidden = e.id !== "view-" + v);
   document.querySelectorAll(".menu a").forEach(a =>
     a.dataset.view === v ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-  if (v === "state-elections") renderAE(); else renderAll();
+  if (v === "state-elections") renderAE(); else if (v === "party-lineage") renderLineage(); else renderAll();
 }
 addEventListener("hashchange", () => { route(); scrollTo(0, 0); });
 route();
